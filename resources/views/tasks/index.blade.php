@@ -20,6 +20,7 @@
             @foreach($tasks as $task)
                 <tr class="text-gray-700 dark:text-gray-400">
                     <td class="px-4 py-3">
+                        <a href="{{ url('/tasks') . '/' . $task->slug }}">
                         <div class="flex items-center text-sm">
                             <!-- Avatar with inset shadow -->
                             <div
@@ -36,6 +37,7 @@
                                     aria-hidden="true"
                                 ></div>
                             </div>
+
                             <div>
                                 <p class="font-semibold"> {{ $task->name }}</p>
                                 <p class="text-xs text-gray-600 dark:text-gray-400">
@@ -43,6 +45,7 @@
                                 </p>
                             </div>
                         </div>
+                        </a>
                     </td>
                     <td class="px-4 py-3 text-sm">
                         {{ $task->hours }}
