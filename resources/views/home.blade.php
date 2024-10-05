@@ -45,12 +45,12 @@
                     <p
                         class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
                     >
-                        Total clients
+                        Totaal aantal medewerkers
                     </p>
                     <p
                         class="text-lg font-semibold text-gray-700 dark:text-gray-200"
                     >
-                        6389
+                        {{ count($employees) }}
                     </p>
                 </div>
             </div>
@@ -146,7 +146,7 @@
                     <tr
                         class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                     >
-                        <th class="px-4 py-3">Client</th>
+                        <th class="px-4 py-3">Medewerker</th>
                         <th class="px-4 py-3">Amount</th>
                         <th class="px-4 py-3">Status</th>
                         <th class="px-4 py-3">Date</th>
