@@ -17,6 +17,12 @@
             veniam vero. Adipisci amet assumenda molestiae optio, quae, quam qui quis reiciendis repellendus sapiente
             similique tempore!</p>
 
+        <h4
+            class="mb-4 mt-4 text-lg font-semibold text-gray-600 dark:text-gray-300"
+        >
+            Belangrijke documenten
+        </h4>
+
 
         <h4
             class="mb-4 mt-4 text-lg font-semibold text-gray-600 dark:text-gray-300"
