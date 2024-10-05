@@ -13,4 +13,9 @@ class Task extends Model
     {
         return 'slug';
     }
+
+    public function employees()
+    {
+        return $this->belongsToMany(Employee::class);
+    }
 }

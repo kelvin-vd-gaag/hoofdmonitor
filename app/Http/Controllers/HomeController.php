@@ -26,6 +26,7 @@ class HomeController extends Controller
     {
         $employees = Employee::all();
         $totalfte = $employees->sum('fte');
-        return view('home', compact('employees', 'totalfte'));
+        $total_available_hours = $employees->sum('available_task_hours');
+        return view('home', compact('employees', 'totalfte', 'total_available_hours'));
     }
 }

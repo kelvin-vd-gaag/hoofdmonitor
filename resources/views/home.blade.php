@@ -45,7 +45,7 @@
                     <p
                         class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
                     >
-                        Totaal aantal medewerkers
+                        Aantal medewerkers
                     </p>
                     <p
                         class="text-lg font-semibold text-gray-700 dark:text-gray-200"
@@ -73,7 +73,7 @@
                     <p
                         class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
                     >
-                        Totaal FTE
+                        FTE
                     </p>
                     <p
                         class="text-lg font-semibold text-gray-700 dark:text-gray-200"
@@ -99,12 +99,12 @@
                     <p
                         class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
                     >
-                        New sales
+                        Vrije taakuren
                     </p>
                     <p
                         class="text-lg font-semibold text-gray-700 dark:text-gray-200"
                     >
-                        376
+                        {{ $total_available_hours }}
                     </p>
                 </div>
             </div>
@@ -127,12 +127,13 @@
                     <p
                         class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
                     >
-                        Pending contacts
+                        Openstaande taakuren
                     </p>
                     <p
                         class="text-lg font-semibold text-gray-700 dark:text-gray-200"
                     >
-                        35
+{{--                        TODO: Deze moet nog dynamisch worden opgehaald--}}
+                        1200
                     </p>
                 </div>
             </div>
@@ -149,7 +150,7 @@
                         <th class="px-4 py-3">Medewerker</th>
                         <th class="px-4 py-3">Beschikbare uren</th>
                         <th class="px-4 py-3">Aantal taken</th>
-                        <th class="px-4 py-3">Date</th>
+                        <th class="px-4 py-3">Lesuren</th>
                     </tr>
                     </thead>
                     <tbody
@@ -189,7 +190,7 @@
                                 4
                             </td>
                             <td class="px-4 py-3 text-sm">
-                                6/10/2020
+                                {{ $employee->available_teaching_hours }}
                             </td>
                         </tr>
                     @endforeach
