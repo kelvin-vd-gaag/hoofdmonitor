@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
+            $table->string('slug');
             $table->float('fte');
             $table->string('salary_grade');
             $table->integer('available_task_hours');

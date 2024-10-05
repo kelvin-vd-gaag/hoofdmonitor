@@ -9,6 +9,11 @@ class Employee extends Model
 {
     use HasFactory;
 
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     public function tasks()
     {
         return $this->belongsToMany(Task::class);
