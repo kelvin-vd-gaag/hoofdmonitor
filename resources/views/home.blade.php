@@ -73,12 +73,12 @@
                     <p
                         class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
                     >
-                        Account balance
+                        Totaal FTE
                     </p>
                     <p
                         class="text-lg font-semibold text-gray-700 dark:text-gray-200"
                     >
-                        $ 46,760.89
+                        {{ $totalfte }}
                     </p>
                 </div>
             </div>
@@ -147,8 +147,8 @@
                         class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                     >
                         <th class="px-4 py-3">Medewerker</th>
-                        <th class="px-4 py-3">Amount</th>
-                        <th class="px-4 py-3">Status</th>
+                        <th class="px-4 py-3">Beschikbare uren</th>
+                        <th class="px-4 py-3">Aantal taken</th>
                         <th class="px-4 py-3">Date</th>
                     </tr>
                     </thead>
@@ -183,14 +183,10 @@
                                 </div>
                             </td>
                             <td class="px-4 py-3 text-sm">
-                                $ 863.45
+                                {{ $employee->available_task_hours }} van de {{ $employee->fte * 400 }}
                             </td>
                             <td class="px-4 py-3 text-xs">
-                        <span
-                            class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
-                        >
-                          Approved
-                        </span>
+                                4
                             </td>
                             <td class="px-4 py-3 text-sm">
                                 6/10/2020

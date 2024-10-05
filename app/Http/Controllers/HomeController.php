@@ -25,6 +25,7 @@ class HomeController extends Controller
     public function index()
     {
         $employees = Employee::all();
-        return view('home', compact('employees'));
+        $totalfte = $employees->sum('fte');
+        return view('home', compact('employees', 'totalfte'));
     }
 }
