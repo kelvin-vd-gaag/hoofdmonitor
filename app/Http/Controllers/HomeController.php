@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -24,9 +25,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::all();
-        $totalfte = $employees->sum('fte');
-        $total_available_hours = $employees->sum('available_task_hours');
-        return view('home', compact('employees', 'totalfte', 'total_available_hours'));
+        $employees = DB::table('employees')->paginate(5);
+        $total_employees = Employee::all();
+        $totalfte = $total_employees->sum('fte');
+        $total_available_hours = $total_employees->sum('available_task_hours');
+        return view('home', compact('employees','total_employees','totalfte', 'total_available_hours'));
     }
 }

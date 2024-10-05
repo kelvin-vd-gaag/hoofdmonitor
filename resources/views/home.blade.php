@@ -5,7 +5,7 @@
         <h2
             class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
         >
-            Dashboard
+            Overzicht
         </h2>
         {{--            <!-- CTA -->--}}
         {{--            <a--}}
@@ -50,7 +50,7 @@
                     <p
                         class="text-lg font-semibold text-gray-700 dark:text-gray-200"
                     >
-                        {{ count($employees) }}
+                        {{ count($total_employees) }}
                     </p>
                 </div>
             </div>
@@ -205,6 +205,7 @@
                 </span>
                 <span class="col-span-2"></span>
                 <!-- Pagination -->
+{{--                {{ $employees->onEachSide(5)->links() }}--}}
                 <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
                   <nav aria-label="Table navigation">
                     <ul class="inline-flex items-center">
