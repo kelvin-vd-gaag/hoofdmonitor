@@ -3,7 +3,7 @@
 @section('content')
     <div class="container px-6 mx-auto grid">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">{{ $task->name }}</h2>
-        <h3 class="mx-6 text-1xl font-semibold text-gray-700 dark:text-gray-200">Taak beschrijving</h3>
+        <h3 class="mx-6 mb-2 text-lg font-semibold text-gray-700 dark:text-gray-200">Taak beschrijving</h3>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci cumque earum quae quibusdam temporibus
             veniam vero. Adipisci amet assumenda molestiae optio, quae, quam qui quis reiciendis repellendus sapiente
             similique tempore!</p>
@@ -16,9 +16,6 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci cumque earum quae quibusdam temporibus
             veniam vero. Adipisci amet assumenda molestiae optio, quae, quam qui quis reiciendis repellendus sapiente
             similique tempore!</p>
-
-
-
 
 
         <h4
@@ -110,15 +107,6 @@
             <!-- Card -->
 
         </div>
-
-
-
-
-
-
-
-
-
 
 
         <form action="" class="mt-4">
