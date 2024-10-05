@@ -109,10 +109,12 @@
             </a>
             <ul class="mt-6">
                 <li class="relative px-6 py-3">
-              <span
-                  class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                  aria-hidden="true"
-              ></span>
+                    @if( Route::is('home'))
+                        <span
+                            class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                            aria-hidden="true"
+                        ></span>
+                    @endif
                     <a
                         class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
                         href="{{ url('/home') }}"
@@ -137,6 +139,12 @@
             </ul>
             <ul>
                 <li class="relative px-6 py-3">
+                    @if( Route::is('employees'))
+                        <span
+                            class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                            aria-hidden="true"
+                        ></span>
+                    @endif
                     <a
                         class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                         href=" {{ url('/employees') }}"
@@ -407,7 +415,7 @@
               ></span>
                     <a
                         class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
-                        href="index.html"
+                        href="{{ url('/home') }}"
                     >
                         <svg
                             class="w-5 h-5"

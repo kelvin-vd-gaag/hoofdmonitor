@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->float('fte');
+            $table->integer('available_task_hours');
+            $table->integer('available_teaching_hours');
             $table->timestamps();
         });
     }
