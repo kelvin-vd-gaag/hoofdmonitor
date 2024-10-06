@@ -17,18 +17,10 @@
             veniam vero. Adipisci amet assumenda molestiae optio, quae, quam qui quis reiciendis repellendus sapiente
             similique tempore!</p>
 
-        <h4
-            class="mb-4 mt-4 text-lg font-semibold text-gray-600 dark:text-gray-300"
-        >
-            Belangrijke documenten
-        </h4>
+        <h4 class="mb-4 mt-4 text-lg font-semibold text-gray-600 dark:text-gray-300">Belangrijke documenten</h4>
 
 
-        <h4
-            class="mb-4 mt-4 text-lg font-semibold text-gray-600 dark:text-gray-300"
-        >
-            Informatie
-        </h4>
+        <h4 class="mb-4 mt-4 text-lg font-semibold text-gray-600 dark:text-gray-300">Informatie</h4>
         <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
             <!-- Card -->
             <div
@@ -115,10 +107,11 @@
         </div>
 
 
-        <form action="" class="mt-4">
+        <form action="{{ url('/task') }}" method="post" class="mt-4">
             @csrf
-            <input type="submit" value="Koppel mij aan deze taak"
-                   class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+            <input type="hidden" name="task_id" value="{{ $task->id }}">
+            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+            <input type="submit" value="Koppel mij aan deze taak" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
         </form>
 
     </div>

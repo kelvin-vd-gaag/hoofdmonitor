@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -63,10 +64,25 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        // Maak de nieuwe gebruiker aan
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        // Zoek in de employees tabel op basis van het email adres
+        $employee = Employee::where('email', $data['email'])->first();
+
+        // Als er een employee is met dat emailadres, koppel hem dan aan de nieuwe user
+        if ($employee) {
+            // Optie 1: Update de employee met de user_id
+            $employee->user_id = $user->id;
+            $employee->save();
+
+            // Optie 2: Je zou hier ook andere logica kunnen toevoegen, afhankelijk van je behoefte.
+        }
+
+        return $user;
     }
 }
