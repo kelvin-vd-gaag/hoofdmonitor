@@ -26,7 +26,6 @@
                 >
                     ga terug
                 </a>
-                .
             </p>
         </div>
     </div>

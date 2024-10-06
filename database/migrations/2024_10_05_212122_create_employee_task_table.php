@@ -19,6 +19,7 @@ return new class extends Migration
 
             // Foreign key to tasks table
             $table->foreignId('task_id')->constrained()->onDelete('cascade');
+            $table->integer('assigned_hours');
 
             $table->timestamps();
         });

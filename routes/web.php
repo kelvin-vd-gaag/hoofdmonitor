@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TaskAssignmentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -12,3 +13,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('/employees', App\Http\Controllers\EmployeeController::class);
 Route::resource('/tasks', App\Http\Controllers\TaskController::class);
+Route::post('/task/assign', [TaskAssignmentController::class, 'store'])->middleware('auth');
