@@ -49,9 +49,10 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+//        TODO: Valideren of een account wel een TCRMBO account is
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users','regex:/^[\w\.-]+@(tcrmbo\.nl|zadkine\.nl)$/'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -64,7 +65,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         // Maak de nieuwe gebruiker aan
+
+        //TODO: Controleren of een TCRMBO account bestaat in de Employees tabel. Anders returnen naar registratie met foutmelding
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
