@@ -256,26 +256,6 @@
                     </a>
                 </li>
                 <li class="relative px-6 py-3">
-                    <a
-                        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                        href="tables.html"
-                    >
-                        <svg
-                            class="w-5 h-5"
-                            aria-hidden="true"
-                            fill="none"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                        </svg>
-                        <span class="ml-4">Tables</span>
-                    </a>
-                </li>
-                <li class="relative px-6 py-3">
                     <button
                         class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                         @click="togglePagesMenu"
@@ -480,29 +460,7 @@
                         <span class="ml-4">Alle taken</span>
                     </a>
                 </li>
-                <li class="relative px-6 py-3">
-                    <a
-                        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                        href="charts.html"
-                    >
-                        <svg
-                            class="w-5 h-5"
-                            aria-hidden="true"
-                            fill="none"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"
-                            ></path>
-                            <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
-                        </svg>
-                        <span class="ml-4">Charts</span>
-                    </a>
-                </li>
+
                 <li class="relative px-6 py-3">
                     <a
                         class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
@@ -703,7 +661,7 @@
                         <input
                             class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                             type="text"
-                            placeholder="Search for projects"
+                            placeholder="Zoek voor taken..."
                             aria-label="Search"
                         />
                     </div>

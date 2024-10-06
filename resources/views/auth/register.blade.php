@@ -82,6 +82,7 @@
                     <label class="block mt-4 text-sm">
                         <span class="text-gray-700 dark:text-gray-400">Email</span>
                         @error('email')
+{{--                        TODO: Style the error message better. It now isn't showing properly--}}
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                         @enderror
                         <input type="email" name="email"
