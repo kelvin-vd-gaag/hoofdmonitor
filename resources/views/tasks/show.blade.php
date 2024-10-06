@@ -107,7 +107,7 @@
         </div>
 
 
-        <form action="{{ url('/task') }}" method="post" class="mt-4">
+        <form action="{{ url('/tasks') }}" method="post" class="mt-4">
             @csrf
             <input type="hidden" name="task_id" value="{{ $task->id }}">
             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">

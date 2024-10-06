@@ -15,7 +15,7 @@
                 <th class="px-4 py-3">Taak</th>
                 <th class="px-4 py-3">E-mail</th>
                 <th class="px-4 py-3">Schaal</th>
-                <th class="px-4 py-3">Date</th>
+                <th class="px-4 py-3">Account status</th>
             </tr>
             </thead>
             <tbody
