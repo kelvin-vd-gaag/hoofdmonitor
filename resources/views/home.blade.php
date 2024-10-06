@@ -133,7 +133,7 @@
                         class="text-lg font-semibold text-gray-700 dark:text-gray-200"
                     >
 {{--                        TODO: Deze moet nog dynamisch worden opgehaald--}}
-                        1200
+                        {{ $total_open_task_hours }}
                     </p>
                 </div>
             </div>

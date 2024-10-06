@@ -26,7 +26,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::with('employees')->get();
         return view('tasks.index', compact('tasks'));
     }
 
@@ -51,6 +51,8 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
+        $task= task::with('employees')->findOrFail($task->id);
+
         $employee = Employee::where('user_id', Auth::user()->id)->first();
         return view('tasks.show', compact('task', 'employee'));
     }

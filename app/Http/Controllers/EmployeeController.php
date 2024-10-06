@@ -38,6 +38,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
+        $employee= Employee::with('tasks')->findOrFail($employee->id);
         return view ('employees.show', compact('employee'));
     }
 
