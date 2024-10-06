@@ -5,7 +5,8 @@
     <div class="container px-6 mx-auto grid">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">Overzicht van alle medewerkers</h2>
         <table id="employeesTable" class="w-full whitespace-no-wrap">
-            <input type="text" id="search" placeholder="Zoek medewerker..." onkeyup="searchTable()" class="p-2 border border-gray-300 rounded mb-4">
+            <input type="text" id="search" placeholder="Zoek medewerker..." onkeyup="searchTable()"
+                   class="p-2 border border-gray-300 rounded mb-4">
 
             <thead>
             <tr
@@ -26,7 +27,9 @@
                         <a href="{{ url('/employees') }}/{{ $employee->slug }}">
                             <div class="flex items-center text-sm">
                                 <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                                    <img class="object-cover w-full h-full rounded-full" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ" alt="" loading="lazy" />
+                                    <img class="object-cover w-full h-full rounded-full"
+                                         src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                                         alt="" loading="lazy"/>
                                     <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
                                 </div>
                                 <div>
@@ -40,7 +43,23 @@
                         <a href="mailto:{{$employee->email}}">{{ $employee->email }}</a>
                     </td>
                     <td class="px-4 py-3 text-xs">{{ $employee->salary_grade }}</td>
-                    <td class="px-4 py-3 text-sm">{{ $employee->available_teaching_hours }}</td>
+                    <td class="px-4 py-3 text-xs">
+                        @if($employee->user_id)
+                            <span
+                                class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
+                            >
+                          Gekoppeld account
+                        </span>
+                        @endif
+                        @if($employee->user_id === null)
+
+                            <span
+                                class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100"
+                            >
+                          Niet gekoppeld
+                        </span>
+                        @endif
+                    </td>
                 </tr>
             @endforeach
             </tbody>
