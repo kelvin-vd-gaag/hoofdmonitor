@@ -1,117 +1,150 @@
 @extends('layouts.app')
 
 @section('content')
-{{--  TODO: Alleen aanpasbaar maken voor de ingelogde gebruiker  --}}
-    <div class="container px-6 mx-auto grid">
+
+    <!-- Alpine.js script alleen in deze Blade -->
+    <script src="//unpkg.com/alpinejs" defer></script>
+
+    <div class="container px-6 mx-auto grid" x-data="{ isModalOpen: false, isEditHoursModalOpen: false, selectedTask: null }">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">{{ $employee->name }}</h2>
+
+        @if(session('success'))
+            <div class="alert alert-success bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
             <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Name</span>
                 <input readonly
-                    class="bg-gray-200 text-gray-500 cursor-not-allowed focus:outline-none p-2 rounded block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                    value="{{ $employee->name }}"/>
+                       class="bg-gray-200 text-gray-500 cursor-not-allowed focus:outline-none p-2 rounded block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                       value="{{ $employee->name }}"/>
             </label>
             <label class="block text-sm mt-2">
                 <span class="text-gray-700 dark:text-gray-400">E-mail</span>
                 <input readonly
-                    class="bg-gray-200 text-gray-500 cursor-not-allowed focus:outline-none p-2 rounded block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                    value="{{ $employee->email }}"/>
+                       class="bg-gray-200 text-gray-500 cursor-not-allowed focus:outline-none p-2 rounded block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                       value="{{ $employee->email }}"/>
             </label>
 
             <div class="mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">
-                  Account Type:
-                </span>
+            <span class="text-gray-700 dark:text-gray-400">
+                Account Type:
+            </span>
                 @if($employee->user_id)
                     <span
-                        class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
-                    >
-                          Gekoppeld account
-                        </span>
-                @endif
-                @if($employee->user_id === null)
-
-                    <span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100">Niet gekoppeld</span>
+                        class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                    Gekoppeld account
+                </span>
+                @else
+                    <span
+                        class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100">Niet gekoppeld</span>
                 @endif
             </div>
         </div>
-        <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-            <!-- Card -->
-            <div
-                class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
-            >
 
+        <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
                 <div>
-                    <p
-                        class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
-                    >
-                        Verantwoordelijk voor
-                    </p>
-                    <p
-                        class="text-lg font-semibold text-gray-700 dark:text-gray-200"
-                    >
+                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Verantwoordelijk voor</p>
+                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
                         @foreach($employee->tasks as $task)
-                            <li><a href="{{ url('/tasks') }}/{{ $task->slug }}">{{ $task->name }}</a></li>
+                            <li>
+                                <a href="{{ url('/tasks') }}/{{ $task->slug }}">{{ $task->name }}</a>
+                                <button
+                                    @click="isModalOpen = true; selectedTask = {{ $task->toJson() }}"
+                                    class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border-transparent rounded-lg hover:bg-red-700 focus:outline-none focus:shadow-outline-purple">
+                                    Verwijder taak
+                                </button>
+                                <button
+                                    @click="isEditHoursModalOpen = true; selectedTask = {{ $task->toJson() }}"
+                                    class="ml-2 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border-transparent rounded-lg hover:bg-blue-700 focus:outline-none focus:shadow-outline-purple">
+                                    Bewerk uren
+                                </button>
+                            </li>
                         @endforeach
                     </p>
                 </div>
             </div>
-            <!-- Card -->
-            <div
-                class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
-            >
-                <div
-                    class="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500"
-                >
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                            fill-rule="evenodd"
-                            d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
-                            clip-rule="evenodd"
-                        ></path>
-                    </svg>
+        </div>
+
+        <!-- Modal voor het verwijderen van een taak -->
+        <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150"
+             x-transition:leave="transition ease-in duration-150"
+             class="fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50">
+            <div x-show="isModalOpen" @click.away="isModalOpen = false"
+                 class="w-full px-6 py-4 bg-white rounded-lg sm:max-w-xl dark:bg-gray-800">
+                <header class="flex justify-end">
+                    <button @click="isModalOpen = false" class="text-gray-400 hover:text-gray-700">
+                        &times;
+                    </button>
+                </header>
+                <div class="mt-4 mb-6">
+                    <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">Taak van medewerker ontkoppelen</p>
+                    <p class="text-lg text-gray-600 dark:text-gray-400"><strong>Taaknaam:</strong> <span
+                            x-text="selectedTask?.name"></span></p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Oorspronkelijke uren:</strong> <span
+                            x-text="selectedTask?.initial_hours"></span></p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Deadline:</strong> <span
+                            x-text="selectedTask?.deadline"></span></p>
                 </div>
-                <div>
-                    <p
-                        class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
-                    >
-                        Totale taak belasting in uren
-                    </p>
-                    <p
-                        class="text-lg font-semibold text-gray-700 dark:text-gray-200"
-                    >
-                        {{ $employee->initial_available_task_hours - $employee->available_task_hours }}
-                    </p>
-                </div>
+                <footer class="flex justify-end">
+                    <button @click="isModalOpen = false"
+                            class="px-4 py-2 mr-4 text-sm font-medium text-gray-700 bg-gray-300 rounded-lg">Annuleren
+                    </button>
+                    <form method="POST" action="/tasks/delete" x-show="selectedTask">
+                        @csrf
+                        @method('DELETE')
+                        <input type="hidden" name="task_id" :value="selectedTask.id">
+                        <label>
+                            Hoeveel uren van deze taak moeten weer terug naar de collega en taak na ontkoppelen?
+                            <input type="number" name="task_hours" :value="selectedTask.initial_hours" min="0">
+                        </label>
+                        <button type="submit"
+                                class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700">
+                            Ontkoppel taak aan medewerker
+                        </button>
+                    </form>
+                </footer>
             </div>
-            <!-- Card -->
-            <div
-                class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
-            >
-                <div
-                    class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500"
-                >
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                            d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
-                        ></path>
-                    </svg>
+        </div>
+
+        <!-- Modal voor het aanpassen van de uren -->
+        <div x-show="isEditHoursModalOpen" x-transition:enter="transition ease-out duration-150"
+             x-transition:leave="transition ease-in duration-150"
+             class="fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50">
+            <div x-show="isEditHoursModalOpen" @click.away="isEditHoursModalOpen = false"
+                 class="w-full px-6 py-4 bg-white rounded-lg sm:max-w-xl dark:bg-gray-800">
+                <header class="flex justify-end">
+                    <button @click="isEditHoursModalOpen = false" class="text-gray-400 hover:text-gray-700">
+                        &times;
+                    </button>
+                </header>
+                <div class="mt-4 mb-6">
+                    <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">Bewerk toegewezen uren voor:</p>
+                    <p class="text-lg text-gray-600 dark:text-gray-400"><strong>Taaknaam:</strong> <span
+                            x-text="selectedTask?.name"></span></p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Oorspronkelijke uren:</strong> <span
+                            x-text="selectedTask?.initial_hours"></span></p>
                 </div>
-                <div>
-                    <p
-                        class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
-                    >
-                        Niet ingevulde taakuren
-                    </p>
-                    <p
-                        class="text-lg font-semibold text-gray-700 dark:text-gray-200"
-                    >
-                        {{ $employee->available_task_hours }}
-                    </p>
-                </div>
+                <footer class="flex justify-end">
+                    <form method="POST" action="/tasks/update-hours" x-show="selectedTask">
+                        @csrf
+                        @method('PATCH')
+                        <input type="hidden" name="task_id" :value="selectedTask.id">
+                        <label>
+                            Nieuwe aantal uren:
+                            <input type="number" name="task_hours" :value="selectedTask.hours" min="0" class="border rounded p-2">
+                        </label>
+                        <button type="submit"
+                                class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">
+                            Update uren
+                        </button>
+                    </form>
+                </footer>
             </div>
         </div>
     </div>
-
 
 @endsection
