@@ -18,11 +18,12 @@ Route::resource('/tasks', App\Http\Controllers\TaskController::class);
 Route::post('/task/assign', [TaskAssignmentController::class, 'store'])->middleware('auth');
 Route::get('/calendar', function (){
 
-    $tasksPerMonth = Task::whereNotNull('deadline') // Filter voor taken met een deadline
-    ->orderByRaw('MONTH(deadline), DAY(deadline)')  // Sorteer op maand en dag
-    ->get()
+    $tasksPerMonth = Task::with('employees') // Eager load employees
+    ->whereNotNull('deadline')
+        ->orderByRaw('MONTH(deadline), DAY(deadline)')
+        ->get()
         ->groupBy(function($task) {
-            return Carbon::parse($task->deadline)->format('F Y'); // Groepeer op maand en jaar (bijv. Oktober 2024)
+            return Carbon::parse($task->deadline)->format('F Y'); // Groepeer op maand en jaar
         });
 
    return view('calendar.index', compact('tasksPerMonth'));

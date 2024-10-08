@@ -15,7 +15,7 @@ class TaskSeeder extends Seeder
     {
         DB::table('tasks')->insert([
             ['name' => 'Open dagen', 'hours' => 190, 'initial_hours' => 190, 'slug' => 'open-dagen', 'deadline' => '2024-10-20'],
-            ['name' => 'No-show', 'hours' => 90, 'initial_hours' => 90, 'slug' => 'no-show', 'deadline' => null],
+            ['name' => 'No-show', 'hours' => 90, 'initial_hours' => 90, 'slug' => 'no-show', 'deadline' => '2024-10-21'],
             ['name' => 'Internationalisering', 'hours' => 30, 'initial_hours' => 30, 'slug' => 'internationalisering', 'deadline' => null],
             ['name' => 'Introductie', 'hours' => 70, 'initial_hours' => 70, 'slug' => 'introductie', 'deadline' => null],
             ['name' => 'Studentenraad-arena', 'hours' => 60, 'initial_hours' => 60, 'slug' => 'studentenraad-arena', 'deadline' => null],
