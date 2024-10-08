@@ -14,7 +14,7 @@
             >
                 <th class="px-4 py-3">Taak</th>
                 <th class="px-4 py-3">E-mail</th>
-                <th class="px-4 py-3">Schaal</th>
+                <th class="px-4 py-3">Openstaande taakuren</th>
                 <th class="px-4 py-3">Account status</th>
             </tr>
             </thead>
@@ -42,7 +42,7 @@
                     <td class="px-4 py-3 text-sm">
                         <a href="mailto:{{$employee->email}}">{{ $employee->email }}</a>
                     </td>
-                    <td class="px-4 py-3 text-xs">{{ $employee->salary_grade }}</td>
+                    <td class="px-4 py-3 text-xs">{{ $employee->available_task_hours }}</td>
                     <td class="px-4 py-3 text-xs">
                         @if($employee->user_id)
                             <span
