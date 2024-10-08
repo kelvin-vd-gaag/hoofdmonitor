@@ -40,7 +40,7 @@
             <div
                 class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
             >
-            
+
                 <div>
                     <p
                         class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
@@ -80,7 +80,8 @@
                     <p
                         class="text-lg font-semibold text-gray-700 dark:text-gray-200"
                     >
-                        {{ $task->hours }}
+{{--                        TODO: Deze moet de oorspronkelijke uren laten zien--}}
+                        {{ $task->initial_hours }}
                     </p>
                 </div>
             </div>
@@ -106,7 +107,7 @@
                     <p
                         class="text-lg font-semibold text-gray-700 dark:text-gray-200"
                     >
-                        50
+                        {{ $task->hours }}
                     </p>
                 </div>
             </div>

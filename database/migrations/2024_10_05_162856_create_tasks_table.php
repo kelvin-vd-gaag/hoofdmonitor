@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('slug');
             $table->longText('description')->nullable();
             $table->integer('hours')->nullable();
+            $table->integer('initial_hours')->nullable();
             $table->date('deadline')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();

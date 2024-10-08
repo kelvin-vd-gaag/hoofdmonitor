@@ -19,6 +19,7 @@ return new class extends Migration
             $table->float('fte');
             $table->string('salary_grade');
             $table->integer('available_task_hours');
+            $table->integer('initial_available_task_hours');
             $table->integer('available_teaching_hours');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
