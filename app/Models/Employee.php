@@ -16,7 +16,9 @@ class Employee extends Model
 
     public function tasks()
     {
-        return $this->belongsToMany(Task::class);
+        return $this->belongsToMany(Task::class)
+            ->withPivot('assigned_hours') // Zorg ervoor dat assigned_hours beschikbaar is
+            ->withTimestamps();
     }
 
     public function user()

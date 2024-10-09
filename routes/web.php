@@ -16,6 +16,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('/employees', App\Http\Controllers\EmployeeController::class);
 Route::resource('/tasks', App\Http\Controllers\TaskController::class);
 Route::post('/task/assign', [TaskAssignmentController::class, 'store'])->middleware('auth');
+Route::delete('/task/{task}/delete', [TaskAssignmentController::class, 'delete'])->middleware('auth');
+Route::patch('/task/update', [TaskAssignmentController::class, 'update'])->middleware('auth');
 Route::get('/calendar', function (){
 
     $tasksPerMonth = Task::with('employees') // Eager load employees

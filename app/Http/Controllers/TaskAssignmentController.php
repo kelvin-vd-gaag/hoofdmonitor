@@ -41,4 +41,47 @@ class TaskAssignmentController extends Controller
         return redirect()->back()->with('success', 'Taak succesvol toegewezen aan werknemer!');
     }
 
+    public function update(Request $request, Task $task)
+    {
+        $employee = Employee::findOrFail($request->employee_id);
+
+        // Werk de uren van de taak bij via de pivot tabel
+        $employee->tasks()->updateExistingPivot($task->id, ['assigned_hours' => $request->assigned_hours]);
+
+        return redirect()->back()->with('success', 'Taakuren succesvol bijgewerkt.');
+    }
+
+    /**
+     * Verwijderen (ontkoppelen) van een taak van een medewerker
+     */
+    public function delete(Task $task, Request $request)
+    {
+        // Haal de medewerker op
+        $employee = Employee::findOrFail($request->employee_id);
+
+        // Haal de uren op die zijn toegekend aan deze medewerker voor de taak
+        //TODO: In het formulier kan je uren in mindering brengen als een taak (deels) al is uitgevoerd. Onderstaande gaat echter altijd uit van de oorspronkelijke taakuren
+        $assignedHours = $employee->tasks()->where('task_id', $task->id)->first()->pivot->assigned_hours;
+        // Controleer of er genoeg uren zijn om terug te geven
+        if ($assignedHours > 0) {
+            // Verhoog de beschikbare taakuren
+            $task->hours += $assignedHours;
+            $task->save();
+
+            // Verhoog de beschikbare uren van de medewerker
+            $employee->available_task_hours += $assignedHours;
+            $employee->save();
+
+            // Ontkoppel de taak van de medewerker
+            $employee->tasks()->detach($task->id);
+
+            return redirect()->back()->with('success', 'Taak ' . $task->name . ' succesvol ontkoppeld en ' . $assignedHours. ' uren zijn teruggegeven.');
+        } else {
+            return redirect()->back()->with('error', 'Er zijn geen uren toegekend aan deze taak.');
+        }
+
+    }
+
+
+
 }

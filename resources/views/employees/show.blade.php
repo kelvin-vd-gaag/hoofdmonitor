@@ -35,58 +35,64 @@
             </div>
         </div>
 
-        <!-- Tabel met taken -->
-        <div class="w-full overflow-hidden rounded-lg shadow-xs">
-            <div class="w-full overflow-x-auto">
-                <table class="w-full whitespace-no-wrap">
-                    <thead>
-                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                        <th class="px-4 py-3">Taak</th>
-                        <th class="px-4 py-3">Uren</th>
-                        <th class="px-4 py-3">Deadline</th>
-                        <th class="px-4 py-3">Acties</th>
-                    </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    @foreach($employee->tasks as $task)
-                        <tr class="text-gray-700 dark:text-gray-400">
-                            <td class="px-4 py-3">
-                                <div class="flex items-center text-sm">
-                                    <div>
-                                        <p class="font-semibold"><a href="{{ url('/tasks') }}/{{ $task->slug }}">{{ $task->name }}</a></p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-4 py-3 text-sm">
-                                {{ $task->hours }}
-                            </td>
-                            <td class="px-4 py-3 text-sm">
-                                @if($task->deadline)
-                                    {{ $task->deadline }}
-                                @else
-                                    Geen deadline
-                                @endif
-
-                            </td>
-                            <td class="px-4 py-3">
-                                <div class="flex items-center space-x-4 text-sm">
-                                    <button @click="isEditHoursModalOpen = true; selectedTask = {{ $task->toJson() }}" class="px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg hover:text-blue-700 focus:outline-none focus:shadow-outline-purple">
-                                        Bewerk uren
-                                    </button>
-                                    <button @click="isModalOpen = true; selectedTask = {{ $task->toJson() }}" class="px-2 py-2 text-sm font-medium leading-5 text-red-600 rounded-lg hover:text-red-700 focus:outline-none focus:shadow-outline-purple">
-                                        Ontkoppel taak
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+        <!-- Controleer of de medewerker taken heeft -->
+        @if($employee->tasks->isEmpty())
+            <div class="px-4 py-3 bg-white rounded-lg shadow-md dark:bg-gray-800 text-center">
+                <p class="text-gray-500 dark:text-gray-400">Geen taken toegewezen aan deze medewerker.</p>
             </div>
-        </div>
+        @else
+            <!-- Tabel met taken -->
+            <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                <div class="w-full overflow-x-auto">
+                    <table class="w-full whitespace-no-wrap">
+                        <thead>
+                        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                            <th class="px-4 py-3">Taak</th>
+                            <th class="px-4 py-3">Uren</th>
+                            <th class="px-4 py-3">Deadline</th>
+                            <th class="px-4 py-3">Acties</th>
+                        </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                        @foreach($employee->tasks as $task)
+                            <tr class="text-gray-700 dark:text-gray-400">
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center text-sm">
+                                        <div>
+                                            <p class="font-semibold"><a href="{{ url('/tasks') }}/{{ $task->slug }}">{{ $task->name }}</a></p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ $task->hours }}
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    @if($task->deadline)
+                                        {{ $task->deadline }}
+                                    @else
+                                        Geen deadline
+                                    @endif
+                                </td>
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center space-x-4 text-sm">
+                                        <button @click="isEditHoursModalOpen = true; selectedTask = {{ $task->toJson() }}" class="px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg hover:text-blue-700 focus:outline-none focus:shadow-outline-purple">
+                                            Bewerk uren
+                                        </button>
+                                        <button @click="isModalOpen = true; selectedTask = {{ $task->toJson() }}" class="px-2 py-2 text-sm font-medium leading-5 text-red-600 rounded-lg hover:text-red-700 focus:outline-none focus:shadow-outline-purple">
+                                            Ontkoppel taak
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @endif
 
         <!-- Modal voor het ontkoppelen van taken -->
-        <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:leave="transition ease-in duration-150" class="fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50">
+        <div x-show="isModalOpen && selectedTask" x-transition:enter="transition ease-out duration-150" x-transition:leave="transition ease-in duration-150" class="fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50">
             <div x-show="isModalOpen" @click.away="isModalOpen = false" class="w-full px-6 py-4 bg-white rounded-lg sm:max-w-xl dark:bg-gray-800">
                 <header class="flex justify-end">
                     <button @click="isModalOpen = false" class="text-gray-400 hover:text-gray-700">&times;</button>
@@ -99,9 +105,11 @@
                 </div>
                 <footer class="flex justify-end">
                     <button @click="isModalOpen = false" class="px-4 py-2 mr-4 text-sm font-medium text-gray-700 bg-gray-300 rounded-lg">Annuleren</button>
-                    <form method="POST" action="/tasks/delete" x-show="selectedTask">
+                    <form method="POST" :action="'/task/' + selectedTask.slug + '/delete'" x-show="selectedTask">
                         @csrf
                         @method('DELETE')
+                        <!-- Voeg employee_id toe aan het formulier -->
+                        <input type="hidden" name="employee_id" value="{{ $employee->id }}">
                         <input type="hidden" name="task_id" :value="selectedTask.id">
                         <label>Hoeveel uren van deze taak moeten weer terug naar de taak na ontkoppelen?
                             <input type="number" name="task_hours" :value="selectedTask.initial_hours" min="0">
@@ -113,7 +121,7 @@
         </div>
 
         <!-- Modal voor het aanpassen van uren -->
-        <div x-show="isEditHoursModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:leave="transition ease-in duration-150" class="fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50">
+        <div x-show="isEditHoursModalOpen && selectedTask" x-transition:enter="transition ease-out duration-150" x-transition:leave="transition ease-in duration-150" class="fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50">
             <div x-show="isEditHoursModalOpen" @click.away="isEditHoursModalOpen = false" class="w-full px-6 py-4 bg-white rounded-lg sm:max-w-xl dark:bg-gray-800">
                 <header class="flex justify-end">
                     <button @click="isEditHoursModalOpen = false" class="text-gray-400 hover:text-gray-700">&times;</button>
@@ -124,7 +132,7 @@
                     <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Oorspronkelijke uren:</strong> <span x-text="selectedTask?.initial_hours"></span></p>
                 </div>
                 <footer class="flex justify-end">
-                    <form method="POST" action="/tasks/update-hours" x-show="selectedTask">
+                    <form method="POST" action="/task/update" x-show="selectedTask">
                         @csrf
                         @method('PATCH')
                         <input type="hidden" name="task_id" :value="selectedTask.id">
