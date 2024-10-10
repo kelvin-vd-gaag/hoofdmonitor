@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MilestoneController;
 use App\Http\Controllers\TaskAssignmentController;
 use App\Models\Task;
 use Carbon\Carbon;
@@ -18,6 +19,11 @@ Route::resource('/tasks', App\Http\Controllers\TaskController::class);
 Route::post('/task/assign', [TaskAssignmentController::class, 'store'])->middleware('auth');
 Route::delete('/task/{task}/delete', [TaskAssignmentController::class, 'delete'])->middleware('auth');
 Route::patch('/task/update', [TaskAssignmentController::class, 'update'])->middleware('auth');
+
+Route::get('/tasks/{task}/milestones', [MilestoneController::class, 'index'])->name('milestones.index');
+Route::post('/tasks/{task}/milestones', [MilestoneController::class, 'store'])->name('milestones.store');
+Route::delete('/milestones/{milestone}', [MilestoneController::class, 'destroy'])->name('milestones.destroy');
+
 Route::get('/calendar', function (){
 
     $tasksPerMonth = Task::with('employees') // Eager load employees

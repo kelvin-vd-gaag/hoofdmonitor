@@ -51,11 +51,18 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        $task= task::with('employees')->findOrFail($task->id);
+        // Haal de taak op met bijbehorende medewerkers en gesorteerde milestones
+        $task = Task::with(['employees', 'milestones' => function ($query) {
+            $query->orderBy('deadline', 'asc'); // Sorteer de mijlpalen op deadline
+        }])->findOrFail($task->id);
 
+        // Haal de ingelogde medewerker op
         $employee = Employee::where('user_id', Auth::user()->id)->first();
+
+        // Stuur de taak, medewerker en milestones naar de view
         return view('tasks.show', compact('task', 'employee'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

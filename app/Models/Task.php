@@ -18,4 +18,9 @@ class Task extends Model
     {
         return $this->belongsToMany(Employee::class);
     }
+
+    public function milestones()
+    {
+        return $this->hasMany(Milestone::class);
+    }
 }

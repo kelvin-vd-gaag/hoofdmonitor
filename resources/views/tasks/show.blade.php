@@ -31,10 +31,44 @@
             veniam vero. Adipisci amet assumenda molestiae optio, quae, quam qui quis reiciendis repellendus sapiente
             similique tempore!</p>
 
-        <h4 class="mb-4 mt-4 text-lg font-semibold text-gray-600 dark:text-gray-300">Belangrijke documenten</h4>
+        <h4 class="mb-4 mt-4 text-lg font-semibold text-gray-600 dark:text-gray-300">Belangrijke mijlpalen</h4>
+            <div class="mb-4 text-decoration-underline text-blue-500"><a href="{{ url('/tasks/' . $task->slug  . '/milestones') }}">Beheer mijlpalen</a></div>
+
+            <div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
+                <div class="w-full overflow-x-auto">
+                    <table class="w-full whitespace-no-wrap">
+                        <thead>
+                        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                            <th class="px-4 py-3">Mijlpaal</th>
+                            <th class="px-4 py-3">Tijdsduur (uren)</th>
+                            <th class="px-4 py-3">Beschrijving</th>
+                            <th class="px-4 py-3">Deadline</th>
+                        </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                        @foreach ($task->milestones as $milestone)
+                            <tr class="text-gray-700 dark:text-gray-400">
+                                <td class="px-4 py-3 text-sm">
+                                    {{ $milestone->name }}
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ $milestone->hours }}
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ $milestone->description }}
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ $milestone->deadline }}
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
 
-        <h4 class="mb-4 mt-4 text-lg font-semibold text-gray-600 dark:text-gray-300">Informatie</h4>
+            <h4 class="mb-4 mt-4 text-lg font-semibold text-gray-600 dark:text-gray-300">Informatie</h4>
         <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
             <!-- Card -->
             <div
@@ -80,7 +114,7 @@
                     <p
                         class="text-lg font-semibold text-gray-700 dark:text-gray-200"
                     >
-{{--                        TODO: Deze moet de oorspronkelijke uren laten zien--}}
+                        {{--                        TODO: Deze moet de oorspronkelijke uren laten zien--}}
                         {{ $task->initial_hours }}
                     </p>
                 </div>
