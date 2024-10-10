@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Log;
 use App\Models\Task;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TaskAssignmentController extends Controller
@@ -35,6 +37,15 @@ class TaskAssignmentController extends Controller
         // Sla de wijzigingen op
         $employee->save();
         $task->save();
+
+        Log::create([
+            'employee_id' => $employee->id, // De gebruiker die de actie uitvoert
+            'model_type' => 'Task', // Het type model, hier is het een taak
+            'model_id' => $task->id, // Het ID van de aangemaakte taak
+            'action' => 'created', // De actie die is uitgevoerd
+            'description' => 'Taak <bold>' . $task->name . '</bold> is gekoppeld aan ', // Optionele beschrijving van de actie
+            'action_time' => Carbon::now(), // Tijdstip van de actie
+        ]);
 
         // Koppel de taak aan de werknemer en voeg de created_at timestamp aan
         $employee->tasks()->attach($task->id,['assigned_hours' => $assignableHours], ['created_at' => now(), 'updated_at' => now()]);
