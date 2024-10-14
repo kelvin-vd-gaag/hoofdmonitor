@@ -7,7 +7,7 @@ use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Validator;
 class TaskController extends Controller
 {
 
@@ -69,7 +69,7 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        //
+        return view('tasks.edit', compact('task'));
     }
 
     /**
@@ -77,7 +77,30 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        //
+        // Valideer de inkomende data
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'hours' => 'required|numeric|min:0',
+            'deadline' => 'required|date|after_or_equal:today',
+        ]);
+
+        // Check for validation errors
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Als de validatie slaagt, de taak updaten
+        $task->name = $request->input('name');
+        $task->description = $request->input('description');
+        $task->hours = $request->input('hours');
+        $task->deadline = $request->input('deadline'); // Wordt opgeslagen als string in 'Y-m-d' formaat
+
+        // Taak opslaan
+        $task->save();
+
+        // Redirect terug naar de taak met succesmelding
+        return redirect()->route('tasks.show', $task->slug)->with('success', 'Taak succesvol bijgewerkt.');
     }
 
     /**

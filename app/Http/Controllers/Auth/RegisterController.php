@@ -59,7 +59,7 @@ class RegisterController extends Controller
                 'max:255',
                 'unique:users',
                 'regex:/^[\w\.-]+@(tcrmbo\.nl|zadkine\.nl)$/',
-                // Custom validatie voor de email in employees tabel
+                // Custom validatie om te kijken of een e-mail bestaat. Als deze NIET bestaat mag de gebruiker niet registreren
                 function($attribute, $value, $fail) {
                     if (!Employee::where('email', $value)->exists()) {
                         $fail('Het opgegeven e-mailadres is niet geregistreerd als medewerker.');

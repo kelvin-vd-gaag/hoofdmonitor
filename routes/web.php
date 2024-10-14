@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MilestoneController;
 use App\Http\Controllers\TaskAssignmentController;
+use App\Models\Employee;
 use App\Models\Task;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/tasks/{task}/milestones', [MilestoneController::class, 'index'])->name('milestones.index');
     Route::post('/tasks/{task}/milestones', [MilestoneController::class, 'store'])->name('milestones.store');
     Route::delete('/milestones/{milestone}', [MilestoneController::class, 'destroy'])->name('milestones.destroy');
+    Route::get('/mijn-taken', function (){
+        $employee = auth()->user()->employee;
+        $tasks = $employee->tasks; //
+        return view('single.my-tasks', compact('tasks'));
+    });
 
     Route::get('/calendar', function () {
 
