@@ -4,12 +4,12 @@
 
     <div class="container px-6 mx-auto grid">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">{{ $task->name }}</h2>
-        <!-- Hier komt het formulier voor het aanmaken van meerdere milestones -->
-            <form action="{{ route('milestones.store', $task->slug) }}" method="POST" id="milestoneForm">
+        <!-- Formulier voor het aanmaken van meerdere milestones -->
+        <form action="{{ route('milestones.store', $task->slug) }}" method="POST" id="milestoneForm">
             @csrf
 
             <div id="milestones-container">
-                <!-- Begin van de eerste subtaak invoerveld -->
+                <!-- Begin van de eerste mijlpaal invoerveld -->
                 <div class="milestone-item mb-4">
                     <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
                         <div>
@@ -47,9 +47,19 @@
                                 required
                             />
                         </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-400" for="milestones[0][description]">
+                                Beschrijving
+                            </label>
+                            <textarea
+                                name="milestones[0][description]"
+                                class="block w-full px-4 py-2 mt-1 text-sm bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple"
+                                placeholder="Beschrijf de subtaak"
+                            ></textarea>
+                        </div>
                     </div>
                 </div>
-                <!-- Einde van de eerste subtaak invoerveld -->
+                <!-- Einde van de eerste mijlpaal invoerveld -->
             </div>
 
             <!-- Knop om meer subtaken toe te voegen -->
@@ -66,7 +76,7 @@
         </form>
     </div>
 
-    <!-- JavaScript voor dynamisch toevoegen van subtaken -->
+    <!-- JavaScript voor dynamisch toevoegen en verwijderen van subtaken -->
     <script>
         let milestoneIndex = 1; // Start met 1 omdat het eerste item handmatig is ingevoerd
         document.getElementById('add-milestone-btn').addEventListener('click', function () {
@@ -111,10 +121,35 @@
                             required
                         />
                     </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-400" for="milestones[\${milestoneIndex}][description]">
+                            Beschrijving
+                        </label>
+                        <textarea
+                            name="milestones[\${milestoneIndex}][description]"
+                            class="block w-full px-4 py-2 mt-1 text-sm bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple"
+                            placeholder="Beschrijf de subtaak"
+                        ></textarea>
+                    </div>
+                    <div class="flex items-center">
+                        <button type="button" class="remove-milestone-btn px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg">
+                            Verwijderen
+                        </button>
+                    </div>
                 </div>
             `;
             container.appendChild(newMilestone);
             milestoneIndex++;
+
+            // Voeg een event listener toe aan de knop om de mijlpaal te verwijderen
+            newMilestone.querySelector('.remove-milestone-btn').addEventListener('click', function () {
+                newMilestone.remove();
+            });
+        });
+
+        // Event listener voor de verwijderknop van de eerste mijlpaal
+        document.querySelector('.remove-milestone-btn')?.addEventListener('click', function () {
+            this.closest('.milestone-item').remove();
         });
     </script>
 
