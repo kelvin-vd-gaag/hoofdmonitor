@@ -11,7 +11,7 @@
                 <th class="px-4 py-3">Taak</th>
                 <th class="px-4 py-3">Openstaande uren</th>
                 <th class="px-4 py-3">Gekoppelde medewekers</th>
-                <th class="px-4 py-3">Date</th>
+                <th class="px-4 py-3">Deadline</th>
             </tr>
             </thead>
             <tbody
@@ -62,7 +62,7 @@
                         @endforeach
                     </td>
                     <td class="px-4 py-3 text-sm">
-                        6/10/2020
+                        {{ $task->deadline }}
                     </td>
                 </tr>
             @endforeach
