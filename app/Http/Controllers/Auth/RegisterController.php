@@ -52,7 +52,20 @@ class RegisterController extends Controller
 //        TODO: Valideren of een account wel een TCRMBO account is
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users','regex:/^[\w\.-]+@(tcrmbo\.nl|zadkine\.nl)$/'],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                'unique:users',
+                'regex:/^[\w\.-]+@(tcrmbo\.nl|zadkine\.nl)$/',
+                // Custom validatie voor de email in employees tabel
+                function($attribute, $value, $fail) {
+                    if (!Employee::where('email', $value)->exists()) {
+                        $fail('Het opgegeven e-mailadres is niet geregistreerd als medewerker.');
+                    }
+                }
+            ],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
