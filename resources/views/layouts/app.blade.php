@@ -324,11 +324,6 @@
                             class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
                             aria-label="submenu"
                         >
-                            <li
-                                class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                            >
-                                <a class="w-full" href="pages/login.html">Login</a>
-                            </li>
                             <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                                 <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
@@ -339,30 +334,10 @@
                                     @csrf
                                 </form>
                             </li>
-
                             <li
                                 class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                             >
-                                <a class="w-full" href="pages/create-account.html">
-                                    Create account
-                                </a>
-                            </li>
-                            <li
-                                class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                            >
-                                <a class="w-full" href="pages/forgot-password.html">
-                                    Forgot password
-                                </a>
-                            </li>
-                            <li
-                                class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                            >
-                                <a class="w-full" href="pages/404.html">404</a>
-                            </li>
-                            <li
-                                class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                            >
-                                <a class="w-full" href="pages/blank.html">Blank</a>
+                                <a class="w-full" href="{{ url('/mijn-profiel/') }}">Mijn profiel</a>
                             </li>
                         </ul>
                     </template>
@@ -594,29 +569,11 @@
                             class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
                             aria-label="submenu"
                         >
+
                             <li
                                 class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                             >
-                                <a class="w-full" href="pages/login.html">Login</a>
-                            </li>
-                            <li
-                                class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                            >
-                                <a class="w-full" href="pages/create-account.html">
-                                    Create account
-                                </a>
-                            </li>
-                            <li
-                                class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                            >
-                                <a class="w-full" href="pages/forgot-password.html">
-                                    Forgot password
-                                </a>
-                            </li>
-                            <li
-                                class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                            >
-                                <a class="w-full" href="pages/404.html">404</a>
+                                <a class="w-full" href="{{ url('/employees') }}">Mijn profiel</a>
                             </li>
                             <li
                                 class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
@@ -627,14 +584,6 @@
                     </template>
                 </li>
             </ul>
-            <div class="px-6 my-6">
-                <button
-                    class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                >
-                    Create account
-                    <span class="ml-2" aria-hidden="true">+</span>
-                </button>
-            </div>
         </div>
     </aside>
     <div class="flex flex-col flex-1 w-full">

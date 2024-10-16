@@ -29,6 +29,11 @@ Route::middleware(['auth'])->group(function () {
         return view('single.my-tasks', compact('tasks'));
     });
 
+    Route::get('/mijn-profiel', function (){
+        $employee = auth()->user()->employee;
+        return view('single.mijn-profiel', compact('employee'));
+    });
+
     Route::get('/calendar', function () {
 
         $tasksPerMonth = Task::with('employees') // Eager load employees
