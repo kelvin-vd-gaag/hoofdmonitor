@@ -56,7 +56,7 @@ class MilestoneController extends Controller
 
 
 
-        return redirect()->route('tasks.show', $task->slug)->with('success', 'Milestone toegevoegd.');
+        return redirect()->route('tasks.show', $task->slug)->with('success', 'Mijlpaal toegevoegd.');
     }
 
     /**
