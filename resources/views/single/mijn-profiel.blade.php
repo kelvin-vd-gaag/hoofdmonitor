@@ -11,20 +11,27 @@
         <div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
             <div class="w-full overflow-x-auto bg-white dark:bg-gray-800 p-6 rounded-lg">
                 <!-- Formulier voor het wijzigen van werknemersgegevens -->
-                <form action="" method="POST">
+                <form action="{{ url('/employees' ) . '/' . $employee->slug  }}" method="POST">
                     @csrf
                     @method('PUT')
 
                     <!-- Naam -->
                     <div class="mb-4">
                         <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-400">Naam</label>
-                        <input type="text" name="name" id="name" value="{{ $employee->name }}" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 form-input dark:text-gray-300 dark:focus:shadow-outline-gray focus:border-purple-400 focus:outline-none focus:shadow-outline-purple" required>
+                        <input type="text" name="name" id="name" value="{{ old('name', $employee->name) }}" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 form-input dark:text-gray-300 dark:focus:shadow-outline-gray focus:border-purple-400 focus:outline-none focus:shadow-outline-purple" required>
+
+                        @if ($errors->has('name'))
+                            <p class="text-red-500 text-xs mt-1">{{ $errors->first('name') }}</p>
+                        @endif
                     </div>
 
-                    <!-- Email (readonly) -->
+                    <!-- E-mail (niet aanpasbaar) -->
                     <div class="mb-4">
                         <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-400">Email</label>
-                        <input type="email" name="email" id="email" value="{{ $employee->email }}" class="block w-full mt-1 text-sm bg-gray-100 dark:bg-gray-700 dark:text-gray-300 form-input" disabled>
+                        <input type="email" id="email" value="{{ $employee->email }}" class="block w-full mt-1 text-sm bg-gray-100 dark:bg-gray-700 dark:text-gray-300 form-input" disabled>
+
+                        <!-- Verborgen veld om de e-mail naar de backend te sturen -->
+                        <input type="hidden" name="email" value="{{ $employee->email }}">
                     </div>
 
                     <!-- Opslaan Button -->

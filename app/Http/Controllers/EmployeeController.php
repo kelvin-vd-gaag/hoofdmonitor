@@ -55,8 +55,22 @@ class EmployeeController extends Controller
      */
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
-        //
-    }
+        // Validatie van de input
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        // Vind de employee door id
+        $employee = Employee::findOrFail($employee->id);
+
+        // Werk de name en email bij
+        $employee->name = $request->input('name');
+
+        // Sla de wijzigingen op
+        $employee->save();
+
+        // Redirect met succesbericht
+        return redirect('/mijn-profiel')->with('success', 'Gegevens succesvol bijgewerkt.');    }
 
     /**
      * Remove the specified resource from storage.
