@@ -38,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
 
         $tasksPerMonth = Task::with('employees') // Eager load employees
         ->whereNotNull('deadline')
-            ->orderByRaw('MONTH(deadline), DAY(deadline)')
+            ->orderByRaw('YEAR(deadline), MONTH(deadline), DAY(deadline)')
             ->get()
             ->groupBy(function ($task) {
                 return Carbon::parse($task->deadline)->format('F Y'); // Groepeer op maand en jaar
