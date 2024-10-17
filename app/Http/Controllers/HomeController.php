@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $employees = DB::table('employees')->paginate(50);
+        $employees = Employee::with('tasks')->get();
         $total_employees = Employee::all();
         $totalfte = $total_employees->sum('fte');
         $total_available_hours = $total_employees->sum('available_task_hours');

@@ -187,7 +187,7 @@
                                 {{ $employee->available_task_hours }} van de {{ $employee->fte * 400 }}
                             </td>
                             <td class="px-4 py-3 text-xs">
-                                4
+                                {{ count($employee->tasks) }}
                             </td>
                             <td class="px-4 py-3 text-sm">
                                 {{ $employee->available_teaching_hours }}
