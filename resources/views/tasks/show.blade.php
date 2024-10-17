@@ -16,11 +16,14 @@
                 <strong class="font-bold">{{ session('error') }}</strong>
             </div>
         @endif
-            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                {{ $task->name }} - Deadline: {{ \Carbon\Carbon::parse($task->deadline)->locale('nl')->translatedFormat('l j F Y') }}
-            </h2>
-
-            <div class="mb-4 text-decoration-underline text-blue-500"><a href="{{ url('/tasks/' . $task->slug . '/edit') }}">Taak bewerken</a></div>
+        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+            {{ $task->name }} -
+            Deadline: {{ \Carbon\Carbon::parse($task->deadline)->locale('nl')->translatedFormat('l j F Y') }}
+        </h2>
+        @can('update', $task)
+            <div class="mb-4 text-decoration-underline text-blue-500"><a
+                    href="{{ url('/tasks/' . $task->slug . '/edit') }}">Taak bewerken</a></div>
+        @endcan
         <h3 class="mx-6 mb-2 text-lg font-semibold text-gray-700 dark:text-gray-200">Taak beschrijving</h3>
         <p>
             {{ $task->description }}

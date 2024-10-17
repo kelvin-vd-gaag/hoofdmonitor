@@ -77,6 +77,8 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
+        $this->authorize('update', $task);
+
         // Valideer de inkomende data
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',

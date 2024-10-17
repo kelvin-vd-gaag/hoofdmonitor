@@ -16,9 +16,8 @@
                 <strong class="font-bold">{{ session('error') }}</strong>
             </div>
         @endif
-
-        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">Taak bewerken: {{ $task->name }}</h2>
-
+            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">Taak
+                bewerken: {{ $task->name }}</h2>
         <form action="{{ route('tasks.update', $task->slug) }}" method="POST">
             @csrf
             @method('PUT') <!-- Dit zorgt ervoor dat het een PUT request is, zoals vereist voor updates -->
