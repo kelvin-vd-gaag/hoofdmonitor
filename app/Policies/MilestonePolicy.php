@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Milestone;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
@@ -19,9 +20,13 @@ class MilestonePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Milestone $milestone): bool
+    public function view(User $user, Milestone $milestone, Task $task): bool
     {
-        //
+        // Haal de taak op die bij de milestone hoort
+        $task = $milestone->task;
+
+        // Controleer of de ingelogde gebruiker is gekoppeld aan de taak via de employees relatie
+        return $user->employee && $task->employees->contains($user->employee->id);
     }
 
     /**

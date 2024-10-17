@@ -16,6 +16,8 @@ class MilestoneController extends Controller
      */
     public function index(Task $task)
     {
+        $this->authorize('view', $task);
+
         $milestones = $task->milestones;
 
         // Stuur de milestones en de taak door naar de view

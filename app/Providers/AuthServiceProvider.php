@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Milestone;
+use App\Policies\MilestonePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Task;
@@ -17,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         // Voeg hier je policies toe
         Task::class => TaskPolicy::class,
+        Milestone::class => MilestonePolicy::class,
     ];
 
     /**
