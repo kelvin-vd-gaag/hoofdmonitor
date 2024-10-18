@@ -2,75 +2,77 @@
 
 @section('content')
 
-    <div class="container px-6 mx-auto grid">
-        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">{{ $task->name }}</h2>
+    <div class="container px-6 mx-auto">
+        <h2 class="my-6 text-3xl font-bold text-gray-900 dark:text-white">{{ $task->name }}</h2>
+
         <!-- Formulier voor het aanmaken van meerdere milestones -->
-        <form action="{{ route('milestones.store', $task->slug) }}" method="POST" id="milestoneForm">
+        <form action="{{ route('milestones.store', $task->slug) }}" method="POST" id="milestoneForm" class="space-y-4">
             @csrf
 
-            <div id="milestones-container">
-                <!-- Begin van de eerste mijlpaal invoerveld -->
-                <div class="milestone-item mb-4">
-                    <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-400" for="milestones[0][name]">
-                                Subtaak naam
-                            </label>
-                            <input
-                                type="text"
-                                name="milestones[0][name]"
-                                class="block w-full px-4 py-2 mt-1 text-sm bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple"
-                                placeholder="Subtaak naam"
-                                required
-                            />
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-400" for="milestones[0][hours]">
-                                Uren
-                            </label>
-                            <input
-                                type="number"
-                                name="milestones[0][hours]"
-                                class="block w-full px-4 py-2 mt-1 text-sm bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple"
-                                placeholder="Aantal uren"
-                                required
-                            />
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-400" for="milestones[0][deadline]">
-                                Deadline
-                            </label>
-                            <input
-                                type="date"
-                                name="milestones[0][deadline]"
-                                class="block w-full px-4 py-2 mt-1 text-sm bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple"
-                                required
-                            />
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-400" for="milestones[0][description]">
-                                Beschrijving
-                            </label>
-                            <textarea
-                                name="milestones[0][description]"
-                                class="block w-full px-4 py-2 mt-1 text-sm bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple"
-                                placeholder="Beschrijf de subtaak"
-                            ></textarea>
-                        </div>
+            <div id="milestones-container" class="space-y-4">
+                <!-- Begin van de eerste subtaak rij -->
+                <div class="milestone-item bg-white dark:bg-gray-900 shadow-sm rounded-lg p-4 flex items-center space-x-4 border-l-4 border-purple-500">
+                    <!-- Naam veld -->
+                    <div class="flex-1">
+                        <input
+                            type="text"
+                            name="milestones[0][name]"
+                            class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            placeholder="Subtaak naam"
+                            required
+                        />
                     </div>
+
+                    <!-- Uren veld -->
+                    <div class="w-24">
+                        <input
+                            type="number"
+                            name="milestones[0][hours]"
+                            class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            placeholder="Uren"
+                            required
+                        />
+                    </div>
+
+                    <!-- Deadline veld -->
+                    <div class="w-40">
+                        <input
+                            type="date"
+                            name="milestones[0][deadline]"
+                            class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            required
+                        />
+                    </div>
+
+                    <!-- Beschrijving veld -->
+                    <div class="flex-1">
+                        <input
+                            type="text"
+                            name="milestones[0][description]"
+                            class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            placeholder="Beschrijving (optioneel)"
+                        />
+                    </div>
+
+                    <!-- Verwijder knop -->
+                    <button type="button" class="remove-milestone-btn text-red-600 hover:text-red-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
                 </div>
-                <!-- Einde van de eerste mijlpaal invoerveld -->
+                <!-- Einde van de eerste subtaak rij -->
             </div>
 
             <!-- Knop om meer subtaken toe te voegen -->
             <button type="button" id="add-milestone-btn"
-                    class="px-4 py-2 mt-4 text-sm font-medium text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+                    class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300">
                 Voeg nog een subtaak toe
             </button>
 
             <!-- Opslaan knop -->
             <button type="submit"
-                    class="px-4 py-2 mt-4 text-sm font-medium text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                    class="px-4 py-2 mt-4 text-sm font-medium text-white bg-purple-600 rounded-lg hover:bg-purple-700 focus:ring-4 focus:ring-purple-400">
                 Opslaan
             </button>
         </form>
@@ -82,62 +84,49 @@
         document.getElementById('add-milestone-btn').addEventListener('click', function () {
             const container = document.getElementById('milestones-container');
             const newMilestone = document.createElement('div');
-            newMilestone.classList.add('milestone-item', 'mb-4');
+            newMilestone.classList.add('milestone-item', 'bg-white', 'dark:bg-gray-900', 'shadow-sm', 'rounded-lg', 'p-4', 'flex', 'items-center', 'space-x-4', 'border-l-4', 'border-purple-500', 'mb-4');
 
             newMilestone.innerHTML = `
-                <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-400" for="milestones[\${milestoneIndex}][name]">
-                            Subtaak naam
-                        </label>
-                        <input
-                            type="text"
-                            name="milestones[\${milestoneIndex}][name]"
-                            class="block w-full px-4 py-2 mt-1 text-sm bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple"
-                            placeholder="Subtaak naam"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-400" for="milestones[\${milestoneIndex}][hours]">
-                            Uren
-                        </label>
-                        <input
-                            type="number"
-                            name="milestones[\${milestoneIndex}][hours]"
-                            class="block w-full px-4 py-2 mt-1 text-sm bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple"
-                            placeholder="Aantal uren"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-400" for="milestones[\${milestoneIndex}][deadline]">
-                            Deadline
-                        </label>
-                        <input
-                            type="date"
-                            name="milestones[\${milestoneIndex}][deadline]"
-                            class="block w-full px-4 py-2 mt-1 text-sm bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-400" for="milestones[\${milestoneIndex}][description]">
-                            Beschrijving
-                        </label>
-                        <textarea
-                            name="milestones[\${milestoneIndex}][description]"
-                            class="block w-full px-4 py-2 mt-1 text-sm bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple"
-                            placeholder="Beschrijf de subtaak"
-                        ></textarea>
-                    </div>
-                    <div class="flex items-center">
-                        <button type="button" class="remove-milestone-btn px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg">
-                            Verwijderen
-                        </button>
-                    </div>
-                </div>
-            `;
+            <div class="flex-1">
+                <input
+                    type="text"
+                    name="milestones[\${milestoneIndex}][name]"
+                    class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    placeholder="Subtaak naam"
+                    required
+                />
+            </div>
+            <div class="w-24">
+                <input
+                    type="number"
+                    name="milestones[\${milestoneIndex}][hours]"
+                    class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    placeholder="Uren"
+                    required
+                />
+            </div>
+            <div class="w-40">
+                <input
+                    type="date"
+                    name="milestones[\${milestoneIndex}][deadline]"
+                    class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    required
+                />
+            </div>
+            <div class="flex-1">
+                <input
+                    type="text"
+                    name="milestones[\${milestoneIndex}][description]"
+                    class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    placeholder="Beschrijving (optioneel)"
+                />
+            </div>
+            <button type="button" class="remove-milestone-btn text-red-600 hover:text-red-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        `;
             container.appendChild(newMilestone);
             milestoneIndex++;
 
