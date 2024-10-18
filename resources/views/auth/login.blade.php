@@ -42,53 +42,50 @@
                 />
             </div>
             <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
-                <form class="w-full"  method="POST" action="{{ route('login') }}">
+                <form class="w-full" method="POST" action="{{ route('login') }}">
                     @csrf
                     <h1
                         class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200"
                     >
                         Login
                     </h1>
+
+                    <!-- Email veld -->
                     <label class="block text-sm">
                         <span class="text-gray-700 dark:text-gray-400">Email</span>
-                        @error('password')
-                        {{--TODO: Error melding weergeven lukt nog niet--}}
-                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                        @enderror
                         <input
                             class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                            placeholder="info@tcrmbo.nl" name="email" value="{{ @old('email') }}"
+                            placeholder="info@tcrmbo.nl" name="email" value="{{ old('email') }}"
                         />
+                        @error('email')
+                        <div class="mt-2 alert alert-success bg-red-100 border border-red-400 text-black-700 px-4 py-3 rounded relative" role="alert">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </label>
+
+                    <!-- Wachtwoord veld -->
                     <label class="block mt-4 text-sm">
                         <span class="text-gray-700 dark:text-gray-400">Wachtwoord</span>
-                        {{--TODO: Error melding weergeven lukt nog niet--}}
-                        @error('password')
-                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                        @enderror
                         <input
                             class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                             placeholder="***************"
                             type="password" name="password"
                         />
+                        @error('password')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
                     </label>
 
-                    <!-- You should use a button here, as the anchor is only used for the example  -->
-
+                    <!-- Inloggen knop -->
                     <input type="submit"
                            class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
                            value="Inloggen"
                     >
 
                     <hr class="my-8" />
-{{--                    <p class="mt-4">--}}
-{{--                        <a--}}
-{{--                            class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"--}}
-{{--                            href="./forgot-password.html"--}}
-{{--                        >--}}
-{{--                            Wachtwoord vergeten?--}}
-{{--                        </a>--}}
-{{--                    </p>--}}
+
+                    <!-- Account aanmaken -->
                     <p class="mt-1">
                         <a
                             class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"

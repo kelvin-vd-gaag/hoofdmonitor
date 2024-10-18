@@ -53,15 +53,15 @@
                 />
             </div>
             <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+{{--                @if ($errors->any())--}}
+{{--                    <div class="alert alert-danger">--}}
+{{--                        <ul>--}}
+{{--                            @foreach ($errors->all() as $error)--}}
+{{--                                <li>{{ $error }}</li>--}}
+{{--                            @endforeach--}}
+{{--                        </ul>--}}
+{{--                    </div>--}}
+{{--                @endif--}}
                 <form class="w-full" method="POST" action="{{ route('register') }}">
                     @csrf
                     <h1
@@ -81,7 +81,9 @@
                     </label>
                     <label class="block mt-4 text-sm">
                         <span class="text-gray-700 dark:text-gray-400">Email</span>
+
                         @error('email')
+
 {{--                        TODO: Style the error message better. It now isn't showing properly--}}
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                         @enderror
