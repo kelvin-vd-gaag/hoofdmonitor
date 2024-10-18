@@ -194,19 +194,8 @@
                         hover:text-gray-800 dark:hover:text-gray-200"
                         href="{{ url('/tasks') }}"
                     >
-                        <svg
-                            class="w-5 h-5"
-                            aria-hidden="true"
-                            fill="none"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                d="M8 9h8M8 13h5M8 17h3M4 5h16M4 19h16"
-                            ></path>
+                        <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
                         </svg>
                         <span class="ml-4">Alle Taken</span>
                     </a>
@@ -275,21 +264,10 @@
                         aria-haspopup="true"
                     >
                         <span class="inline-flex items-center">
-                            <svg
-                                class="w-5 h-5"
-                                aria-hidden="true"
-                                fill="none"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    d="M4 6h16M4 10h16M4 14h16M4 18h16"
-                                ></path>
-                            </svg>
-                            <span class="ml-4">Account Beheer</span>
+                          <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                          <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                            <span class="">Account Beheer</span>
                         </span>
                         <svg
                             class="w-4 h-4"
