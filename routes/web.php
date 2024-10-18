@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MilestoneController;
 use App\Http\Controllers\TaskAssignmentController;
+use App\Http\Controllers\TaskController;
 use App\Models\Employee;
 use App\Models\Task;
 use Carbon\Carbon;
@@ -46,4 +47,7 @@ Route::middleware(['auth'])->group(function () {
 
         return view('calendar.index', compact('tasksPerMonth'));
     })->name('calendar.index');
+
+    Route::get('/search', [TaskController::class, 'search'])->name('search');
+
 });

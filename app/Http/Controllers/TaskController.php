@@ -6,6 +6,7 @@ use App\Models\Employee;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 class TaskController extends Controller
@@ -112,4 +113,18 @@ class TaskController extends Controller
     {
         //
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        if ($query) {
+            $tasks = Task::where('name', 'LIKE', '%' . $query . '%')->get();
+
+            return response()->json($tasks);
+        }
+
+        return response()->json([]);
+    }
+
 }
