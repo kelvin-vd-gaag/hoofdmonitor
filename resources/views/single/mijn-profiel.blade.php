@@ -3,6 +3,11 @@
 @section('content')
 
     <div class="container px-6 mx-auto grid">
+        @if(session('success'))
+            <div class="mt-4 alert alert-success bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
             Profieloverzicht
         </h2>
