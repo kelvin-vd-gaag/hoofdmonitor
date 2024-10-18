@@ -27,7 +27,7 @@ Route::middleware(['auth'])->group(function () {
         $employee = auth()->user()->employee;
         $tasks = $employee->tasks; //
         return view('single.my-tasks', compact('tasks'));
-    });
+    })->name('mijn-taken.index');
 
     Route::get('/mijn-profiel', function (){
         $employee = auth()->user()->employee;
@@ -45,5 +45,5 @@ Route::middleware(['auth'])->group(function () {
             });
 
         return view('calendar.index', compact('tasksPerMonth'));
-    });
+    })->name('calendar.index');
 });
