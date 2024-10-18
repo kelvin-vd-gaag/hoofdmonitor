@@ -64,76 +64,68 @@
 {{--                @endif--}}
                 <form class="w-full" method="POST" action="{{ route('register') }}">
                     @csrf
-                    <h1
-                        class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200"
-                    >
+                    <h1 class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
                         Account aanmaken
                     </h1>
+
+                    <!-- Volledige naam -->
                     <label class="block text-sm">
                         <span class="text-gray-700 dark:text-gray-400">Volledige naam</span>
-                        @error('name')
-                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                        @enderror
                         <input type="text" name="name"
-                               class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                               placeholder="F. Mercury" value="{{ @old('name') }}"
+                               class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input @error('name') border-red-600 @enderror"
+                               placeholder="F. Mercury" value="{{ old('name') }}"
                         />
+                        @error('name')
+                        <span class="text-xs text-red-600 mt-1">{{ $message }}</span>
+                        @enderror
                     </label>
+
+                    <!-- Email -->
                     <label class="block mt-4 text-sm">
                         <span class="text-gray-700 dark:text-gray-400">Email</span>
-
-                        @error('email')
-
-{{--                        TODO: Style the error message better. It now isn't showing properly--}}
-                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                        @enderror
                         <input type="email" name="email"
-                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                            placeholder="voorbeeld@tcrmbo.nl" value="{{ @old('email') }}"
+                               class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input @error('email') border-red-600 @enderror"
+                               placeholder="voorbeeld@tcrmbo.nl" value="{{ old('email') }}"
                         />
+                        @error('email')
+                        <span class="text-xs text-red-600 mt-1">{{ $message }}</span>
+                        @enderror
                     </label>
+
+                    <!-- Wachtwoord -->
                     <label class="block mt-4 text-sm">
                         <span class="text-gray-700 dark:text-gray-400">Wachtwoord</span>
-                        @error('password')
-                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                        @enderror
                         <input name="password"
-                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                            placeholder="***************"
-                            type="password"
+                               class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input @error('password') border-red-600 @enderror"
+                               placeholder="***************" type="password"
                         />
+                        @error('password')
+                        <span class="text-xs text-red-600 mt-1">{{ $message }}</span>
+                        @enderror
                     </label>
+
+                    <!-- Herhaal wachtwoord -->
                     <label class="block mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">
-                  Herhaal wachtwoord
-                </span>
-                        <input
-                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                            placeholder="***************"
-                            type="password" name="password_confirmation"
+                        <span class="text-gray-700 dark:text-gray-400">Herhaal wachtwoord</span>
+                        <input name="password_confirmation"
+                               class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                               placeholder="***************" type="password"
                         />
                     </label>
 
-
-                    <!-- You should use a button here, as the anchor is only used for the example  -->
+                    <!-- Submit button -->
                     <input type="submit"
-                        class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                        value="Maak een account aan"
+                           class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                           value="Maak een account aan"
                     >
 
-
-                    <hr class="my-8"/>
-
+                    <hr class="my-8" />
 
                     <p class="mt-4">
-
-                        Heb je al een account? <a
-                            class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
-                            href="{{ url('/login') }}"
-                        > Log hier in
-                        </a>
+                        Heb je al een account? <a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="{{ url('/login') }}"> Log hier in</a>
                     </p>
                 </form>
+
             </div>
         </div>
     </div>
