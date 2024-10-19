@@ -35,7 +35,7 @@
                                     {{ $task->description ?? 'Geen beschrijving' }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ $task->hours }}
+                                    {{ $task->initial_hours }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
                                     {{ \Carbon\Carbon::parse($task->deadline)->locale('nl')->translatedFormat('l j F Y') }}

@@ -64,7 +64,7 @@
                                     </div>
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ $task->hours }}
+                                    {{ $task->initial_hours }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
                                     @if($task->deadline)
@@ -93,28 +93,32 @@
 
         <!-- Modal voor het ontkoppelen van taken -->
         <div x-show="isModalOpen && selectedTask" x-transition:enter="transition ease-out duration-150" x-transition:leave="transition ease-in duration-150" class="fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50">
-            <div x-show="isModalOpen" @click.away="isModalOpen = false" class="w-full px-6 py-4 bg-white rounded-lg sm:max-w-xl dark:bg-gray-800">
+            <div x-show="isModalOpen" @click.away="isModalOpen = false" @keydown.escape.window="isModalOpen = false" class="w-full px-6 py-4 bg-white rounded-lg sm:max-w-xl dark:bg-gray-800">
                 <header class="flex justify-end">
-                    <button @click="isModalOpen = false" class="text-gray-400 hover:text-gray-700">&times;</button>
+                    <button @click="isModalOpen = false" class="text-gray-400 hover:text-gray-700 focus:outline-none focus:text-gray-700">&times;</button>
                 </header>
                 <div class="mt-4 mb-6">
-                    <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">Taak van medewerker ontkoppelen</p>
-                    <p class="text-lg text-gray-600 dark:text-gray-400"><strong>Taaknaam:</strong> <span x-text="selectedTask?.name"></span></p>
-                    <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Oorspronkelijke uren:</strong> <span x-text="selectedTask?.initial_hours"></span></p>
-                    <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Deadline:</strong> <span x-text="selectedTask?.deadline"></span></p>
+                    <h3 class="mb-4 text-lg font-semibold text-gray-700 dark:text-gray-300">Taak van medewerker ontkoppelen</h3>
+                    <div class="space-y-2">
+                        <p class="text-gray-600 dark:text-gray-400"><strong>Taaknaam:</strong> <span x-text="selectedTask?.name"></span></p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Oorspronkelijke uren:</strong> <span x-text="selectedTask?.initial_hours"></span></p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Deadline:</strong> <span x-text="selectedTask?.deadline"></span></p>
+                    </div>
                 </div>
-                <footer class="flex justify-end">
-                    <button @click="isModalOpen = false" class="px-4 py-2 mr-4 text-sm font-medium text-gray-700 bg-gray-300 rounded-lg">Annuleren</button>
+                <footer class="flex justify-end space-x-2">
                     <form method="POST" :action="'/task/' + selectedTask.slug + '/delete'" x-show="selectedTask">
                         @csrf
                         @method('DELETE')
-                        <!-- Voeg employee_id toe aan het formulier -->
                         <input type="hidden" name="employee_id" value="{{ $employee->id }}">
                         <input type="hidden" name="task_id" :value="selectedTask.id">
-                        <label>Hoeveel uren van deze taak moeten weer terug naar de taak na ontkoppelen?
-                            <input type="number" name="task_hours" :value="selectedTask.initial_hours" min="0">
+                        <label class="block text-sm mt-2">
+                            <span class="text-gray-700 dark:text-gray-400">Hoeveel uren moeten terug naar de taak na ontkoppelen?</span>
+                            <input type="number" name="task_hours" :value="selectedTask.initial_hours" min="0" class="border rounded p-2 w-full mt-1">
                         </label>
-                        <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700">Ontkoppel taak</button>
+                        <div class="flex justify-end mt-4 space-x-2">
+                            <button type="button" @click="isModalOpen = false" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-300 rounded-lg hover:bg-gray-400 focus:outline-none focus:bg-gray-400">Annuleren</button>
+                            <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:bg-red-700">Ontkoppel taak</button>
+                        </div>
                     </form>
                 </footer>
             </div>
@@ -122,24 +126,30 @@
 
         <!-- Modal voor het aanpassen van uren -->
         <div x-show="isEditHoursModalOpen && selectedTask" x-transition:enter="transition ease-out duration-150" x-transition:leave="transition ease-in duration-150" class="fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50">
-            <div x-show="isEditHoursModalOpen" @click.away="isEditHoursModalOpen = false" class="w-full px-6 py-4 bg-white rounded-lg sm:max-w-xl dark:bg-gray-800">
+            <div x-show="isEditHoursModalOpen" @click.away="isEditHoursModalOpen = false" @keydown.escape.window="isEditHoursModalOpen = false" class="w-full px-6 py-4 bg-white rounded-lg sm:max-w-xl dark:bg-gray-800">
                 <header class="flex justify-end">
-                    <button @click="isEditHoursModalOpen = false" class="text-gray-400 hover:text-gray-700">&times;</button>
+                    <button @click="isEditHoursModalOpen = false" class="text-gray-400 hover:text-gray-700 focus:outline-none focus:text-gray-700">&times;</button>
                 </header>
                 <div class="mt-4 mb-6">
-                    <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">Bewerk toegewezen uren voor:</p>
-                    <p class="text-lg text-gray-600 dark:text-gray-400"><strong>Taaknaam:</strong> <span x-text="selectedTask?.name"></span></p>
-                    <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Oorspronkelijke uren:</strong> <span x-text="selectedTask?.initial_hours"></span></p>
+                    <h3 class="mb-4 text-lg font-semibold text-gray-700 dark:text-gray-300">Bewerk toegewezen uren voor:</h3>
+                    <div class="space-y-2">
+                        <p class="text-gray-600 dark:text-gray-400"><strong>Taaknaam:</strong> <span x-text="selectedTask?.name"></span></p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Oorspronkelijke uren:</strong> <span x-text="selectedTask?.initial_hours"></span></p>
+                    </div>
                 </div>
-                <footer class="flex justify-end">
-                    <form method="POST" action="/task/update" x-show="selectedTask">
+                <footer class="flex justify-end space-x-2">
+                    <form method="POST" action="/task/update" x-show="selectedTask" class="w-full">
                         @csrf
                         @method('PATCH')
                         <input type="hidden" name="task_id" :value="selectedTask.id">
-                        <label>Nieuwe aantal uren:
-                            <input type="number" name="task_hours" :value="selectedTask.hours" min="0" class="border rounded p-2">
+                        <label class="block text-sm mt-2">
+                            <span class="text-gray-700 dark:text-gray-400">Nieuwe aantal uren:</span>
+                            <input type="number" name="task_hours" :value="selectedTask.initial_hours" min="0" class="border rounded p-2 w-full mt-1">
                         </label>
-                        <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">Update uren</button>
+                        <div class="flex justify-end mt-4 space-x-2">
+                            <button type="button" @click="isEditHoursModalOpen = false" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-300 rounded-lg hover:bg-gray-400 focus:outline-none focus:bg-gray-400">Annuleren</button>
+                            <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:bg-blue-700">Update uren</button>
+                        </div>
                     </form>
                 </footer>
             </div>
