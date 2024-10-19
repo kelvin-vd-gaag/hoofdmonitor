@@ -45,8 +45,23 @@ class User extends Authenticatable
         ];
     }
 
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
     public function employee()
     {
         return $this->hasOne(Employee::class, 'email', 'email');
+    }
+
+    protected static function booted()
+    {
+        static::creating(function ($user) {
+            if (!$user->role_id) {
+                $defaultRole = Role::where('name', 'employee')->first();
+                $user->role_id = $defaultRole->id;
+            }
+        });
     }
 }
