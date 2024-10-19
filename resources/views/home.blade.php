@@ -132,7 +132,7 @@
                     <p
                         class="text-lg font-semibold text-gray-700 dark:text-gray-200"
                     >
-{{--                        TODO: Deze moet nog dynamisch worden opgehaald--}}
+                        {{--                        TODO: Deze moet nog dynamisch worden opgehaald--}}
                         {{ $total_open_task_hours }}
                     </p>
                 </div>
@@ -176,7 +176,9 @@
                                         ></div>
                                     </div>
                                     <div>
-                                        <p class="font-semibold"> {{ $employee->name }}</p>
+                                        <a href="{{ url('/employees/' . $employee->slug) }}">
+                                            <p class="font-semibold"> {{ $employee->name }}</p>
+                                        </a>
                                         <p class="text-xs text-gray-600 dark:text-gray-400">
                                             FTE: {{ $employee->fte }}
                                         </p>
@@ -205,7 +207,7 @@
                 </span>
                 <span class="col-span-2"></span>
                 <!-- Pagination -->
-{{--                {{ $employees->onEachSide(5)->links() }}--}}
+                {{--                {{ $employees->onEachSide(5)->links() }}--}}
                 <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
                   <nav aria-label="Table navigation">
                     <ul class="inline-flex items-center">

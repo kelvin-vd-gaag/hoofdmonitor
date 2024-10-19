@@ -14,7 +14,7 @@ class MilestonePolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+
     }
 
     /**
@@ -22,11 +22,11 @@ class MilestonePolicy
      */
     public function view(User $user, Milestone $milestone, Task $task): bool
     {
-        // Haal de taak op die bij de milestone hoort
-        $task = $milestone->task;
+        $employee = $user->employee;
 
-        // Controleer of de ingelogde gebruiker is gekoppeld aan de taak via de employees relatie
-        return $user->employee && $task->employees->contains($user->employee->id);
+        dd($employee);
+
+        return $task->employees()->where('employees.id', $employee->id)->exists();
     }
 
     /**
