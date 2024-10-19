@@ -40,8 +40,8 @@
                     </div>
 
                     <!-- Opslaan Button -->
-                    <div class="mt-6">
-                        <button type="submit" class="w-full px-4 py-2 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                    <div class="mt-6 flex justify-end">
+                        <button type="submit" id="saveButton" disabled class="px-4 py-2 font-medium leading-5 text-gray-500 transition-colors duration-150 bg-gray-300 border border-transparent rounded-lg cursor-not-allowed">
                             Gegevens Opslaan
                         </button>
                     </div>
@@ -50,5 +50,20 @@
         </div>
 
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.querySelector('form');
+            const saveButton = document.getElementById('saveButton');
 
+            // Voeg event listener toe voor elk invoerveld om wijzigingen te detecteren
+            form.addEventListener('input', function() {
+                console.log('test')
+                saveButton.disabled = false;
+                saveButton.classList.remove('bg-gray-300', 'cursor-not-allowed', 'text-gray-500');
+                saveButton.classList.add('bg-purple-600', 'hover:bg-purple-700', 'text-white');
+            });
+        });
+    </script>
 @endsection
+
+
