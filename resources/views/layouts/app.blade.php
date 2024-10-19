@@ -479,7 +479,7 @@
                                     <a :href="'/tasks/' + result.slug" class="text-gray-700 dark:text-gray-300" x-text="result.name"></a>
                                 </li>
                             </template>
-                            <li x-show="results.length === 0 && query !== ''" class="p-2 text-sm text-gray-500 dark:text-gray-400">Geen resultaten gevonden.</li>
+                            <li x-show="results.length === 0 && query !== ''" class="p-2 te xt-sm text-gray-500 dark:text-gray-400">Geen resultaten gevonden.</li>
                         </ul>
                     </div>
                 </div>
