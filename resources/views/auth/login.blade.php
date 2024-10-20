@@ -18,7 +18,7 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
         defer
     ></script>
-    @vite(['resources/sass/app.scss','resources/css/tailwind.output.css','resources/js/init-alpine.js', 'resources/js/app.js','resources/js/charts-bars.js','resources/js/charts-lines.js','resources/js/charts-pie.js','resources/js/focus-trap.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js','resources/css/tailwind.output.css'])
 
 </head>
 <body>
