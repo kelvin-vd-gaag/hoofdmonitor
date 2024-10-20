@@ -87,46 +87,47 @@
             newMilestone.classList.add('milestone-item', 'bg-white', 'dark:bg-gray-900', 'shadow-sm', 'rounded-lg', 'p-4', 'flex', 'items-center', 'space-x-4', 'border-l-4', 'border-purple-500', 'mb-4');
 
             newMilestone.innerHTML = `
-            <div class="flex-1">
-                <input
-                    type="text"
-                    name="milestones[\${milestoneIndex}][name]"
-                    class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    placeholder="Subtaak naam"
-                    required
-                />
-            </div>
-            <div class="w-24">
-                <input
-                    type="number"
-                    name="milestones[\${milestoneIndex}][hours]"
-                    class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    placeholder="Uren"
-                    required
-                />
-            </div>
-            <div class="w-40">
-                <input
-                    type="date"
-                    name="milestones[\${milestoneIndex}][deadline]"
-                    class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    required
-                />
-            </div>
-            <div class="flex-1">
-                <input
-                    type="text"
-                    name="milestones[\${milestoneIndex}][description]"
-                    class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    placeholder="Beschrijving (optioneel)"
-                />
-            </div>
-            <button type="button" class="remove-milestone-btn text-red-600 hover:text-red-800">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-            </button>
-        `;
+        <div class="flex-1">
+            <input
+                type="text"
+                name="milestones[` + milestoneIndex + `][name]"
+                class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                placeholder="Subtaak naam"
+                required
+            />
+        </div>
+        <div class="w-24">
+            <input
+                type="number"
+                name="milestones[` + milestoneIndex + `][hours]"
+                class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                placeholder="Uren"
+                required
+            />
+        </div>
+        <div class="w-40">
+            <input
+                type="date"
+                name="milestones[` + milestoneIndex + `][deadline]"
+                class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                required
+            />
+        </div>
+        <div class="flex-1">
+            <input
+                type="text"
+                name="milestones[` + milestoneIndex + `][description]"
+                class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                placeholder="Beschrijving (optioneel)"
+            />
+        </div>
+        <button type="button" class="remove-milestone-btn text-red-600 hover:text-red-800">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+    `;
+
             container.appendChild(newMilestone);
             milestoneIndex++;
 
@@ -136,10 +137,6 @@
             });
         });
 
-        // Event listener voor de verwijderknop van de eerste mijlpaal
-        document.querySelector('.remove-milestone-btn')?.addEventListener('click', function () {
-            this.closest('.milestone-item').remove();
-        });
     </script>
 
 @endsection
