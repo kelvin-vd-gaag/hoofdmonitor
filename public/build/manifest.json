@@ -1,4 +1,9 @@
 {
+  "resources/css/tailwind.output.css": {
+    "file": "assets/tailwind-CuzHXxEh.css",
+    "src": "resources/css/tailwind.output.css",
+    "isEntry": true
+  },
   "resources/js/app.js": {
     "file": "assets/app-CQ9_WWUM.js",
     "name": "app",
