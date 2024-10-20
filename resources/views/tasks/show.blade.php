@@ -24,7 +24,7 @@
             <div class="mb-4 text-decoration-underline text-blue-500"><a
                     href="{{ url('/tasks/' . $task->slug . '/edit') }}">Taak bewerken</a></div>
         @endcan
-        <h3 class="mx-6 mb-2 text-lg font-semibold text-gray-700 dark:text-gray-200">Taak beschrijving</h3>
+        <h3 class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-200">Taak beschrijving</h3>
         <p>
             {{ $task->description }}
         </p>
@@ -155,7 +155,7 @@
                     <input type="hidden" name="task_id" value="{{ $task->id }}">
                     <input type="hidden" name="employee_id" value="{{ $employee->id }}">
                     <input type="submit" value="Koppel mij aan deze taak"
-                           class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                           class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-lime-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                 </form>
 
             @else

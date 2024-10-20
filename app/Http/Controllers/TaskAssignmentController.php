@@ -12,7 +12,6 @@ class TaskAssignmentController extends Controller
 {
     public function store(Request $request)
     {
-//        TODO: Voorkomen dat je de employee_id aan kan passen met een GUARD voor de juiste authorisatie
         $request->validate([
             'employee_id' => 'required|exists:employees,id',
             'task_id' => 'required|exists:tasks,id',
@@ -73,20 +72,21 @@ class TaskAssignmentController extends Controller
         // Haal de uren op die zijn toegekend aan deze medewerker voor de taak
         //TODO: In het formulier kan je uren in mindering brengen als een taak (deels) al is uitgevoerd. Onderstaande gaat echter altijd uit van de oorspronkelijke taakuren
         $assignedHours = $employee->tasks()->where('task_id', $task->id)->first()->pivot->assigned_hours;
+
         // Controleer of er genoeg uren zijn om terug te geven
         if ($assignedHours > 0) {
             // Verhoog de beschikbare taakuren
-            $task->hours += $assignedHours;
+            $task->hours += $request->task_hours;
             $task->save();
 
             // Verhoog de beschikbare uren van de medewerker
-            $employee->available_task_hours += $assignedHours;
+            $employee->available_task_hours += $request->task_hours;
             $employee->save();
 
             // Ontkoppel de taak van de medewerker
             $employee->tasks()->detach($task->id);
 
-            return redirect()->back()->with('success', 'Taak ' . $task->name . ' succesvol ontkoppeld en ' . $assignedHours. ' uren zijn teruggegeven.');
+            return redirect()->back()->with('success', 'Taak ' . $task->name . ' succesvol ontkoppeld en ' . $request->task_hours . ' uren zijn teruggegeven.');
         } else {
             return redirect()->back()->with('error', 'Er zijn geen uren toegekend aan deze taak.');
         }

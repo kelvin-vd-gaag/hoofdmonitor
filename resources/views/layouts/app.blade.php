@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html :class="{ 'theme-dark': light }" x-data="data()" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html :class="{ 'dark': light }" x-data="data()" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -62,9 +62,9 @@
                 toggleProfileMenu() {
                     this.isProfileMenuOpen = !this.isProfileMenuOpen
                 },
-                closeProfileMenu() {
-                    this.isProfileMenuOpen = false
-                },
+                // closeProfileMenu() {
+                //     this.isProfileMenuOpen = false
+                // },
                 isPagesMenuOpen: false,
                 togglePagesMenu() {
                     this.isPagesMenuOpen = !this.isPagesMenuOpen
@@ -77,14 +77,11 @@
                 },
                 closeModal() {
                     this.isModalOpen = false
-                    this.trapCleanup()
+                    if (this.trapCleanup) {
+                        this.trapCleanup()
+                    }
                 },
-            }
-        }
-
-        // Live zoekfunctionaliteit
-        function searchApp() {
-            return {
+                // Live zoekfunctionaliteit
                 query: '',
                 results: [],
                 search() {
@@ -114,7 +111,7 @@
     >
         <div class="py-4 text-gray-500 dark:text-gray-400">
             <a
-                class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
+                class="ml-6 text-lg font-bold text-gray-800"
                 href="{{ url('/') }}"
             >
                 Hoofdmonitor
@@ -122,7 +119,7 @@
             <ul class="mt-6">
                 <li class="relative px-6 py-3">
                     @if( Route::is('home') )
-                        <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                        <span class="absolute inset-y-0 left-0 w-1 bg-lime-600 rounded-tr-lg rounded-br-lg"
                               aria-hidden="true"></span>
                     @endif
                     <a
@@ -153,7 +150,7 @@
                 <!-- Medewerkers -->
                 <li class="relative px-6 py-3">
                     @if( Route::is('employees.index') )
-                        <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                        <span class="absolute inset-y-0 left-0 w-1 bg-lime-600 rounded-tr-lg rounded-br-lg"
                               aria-hidden="true"></span>
                     @endif
                     <a
@@ -173,9 +170,9 @@
                             stroke="currentColor"
                         >
                             <path
-                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2"
                             ></path>
-                            <path d="M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                            <path d="M9 5a2 2 0 002 2h2a2 2 0 002-2"></path>
                             <path d="M12 11h3m-3 4h3"></path>
                             <path d="M9 11h.01M9 16h.01"></path>
                         </svg>
@@ -185,7 +182,7 @@
                 <!-- Taken -->
                 <li class="relative px-6 py-3">
                     @if( Route::is('tasks.index') )
-                        <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                        <span class="absolute inset-y-0 left-0 w-1 bg-lime-600 rounded-tr-lg rounded-br-lg"
                               aria-hidden="true"></span>
                     @endif
                     <a
@@ -203,7 +200,7 @@
                 <!-- Jaarkalender -->
                 <li class="relative px-6 py-3">
                     @if( Route::is('calendar.index') )
-                        <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                        <span class="absolute inset-y-0 left-0 w-1 bg-lime-600 rounded-tr-lg rounded-br-lg"
                               aria-hidden="true"></span>
                     @endif
                     <a
@@ -232,7 +229,7 @@
                 <!-- Mijn Taken -->
                 <li class="relative px-6 py-3">
                     @if( Route::is('mijn-taken.index') )
-                        <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                        <span class="absolute inset-y-0 left-0 w-1 bg-lime-600 rounded-tr-lg rounded-br-lg"
                               aria-hidden="true"></span>
                     @endif
                     <a
@@ -256,7 +253,8 @@
                         <span class="ml-4">Mijn Taken</span>
                     </a>
                 </li>
-                <!-- Account beheer -->
+                @if (auth()->user()->role->name === 'admin')
+                    <!-- Inhoud voor admins --><!-- Beheer -->
                 <li class="relative px-6 py-3">
                     <button
                         class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
@@ -265,9 +263,10 @@
                     >
                         <span class="inline-flex items-center">
                           <svg class="w-4 h-4" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                          <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                          <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                          <path d="M12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                         </svg>
-                            <span class="ml-4">Account Beheer</span>
+                            <span class="ml-4">Beheer</span>
                         </span>
                         <svg
                             class="w-4 h-4"
@@ -312,6 +311,8 @@
                         </ul>
                     </template>
                 </li>
+                @endif
+
             </ul>
         </div>
     </aside>
@@ -342,7 +343,7 @@
         <!-- Mobiele navigatie (zelfde links als desktop navigatie) -->
         <div class="py-4 text-gray-500 dark:text-gray-400">
             <a
-                class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
+                class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200 accent-limegreen"
                 href="{{ url('/') }}"
             >
                 Hoofdmonitor
@@ -404,7 +405,7 @@
                             <path
                                 d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2"
                             ></path>
-                            <path d="M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                            <path d="M9 5a2 2 0 002 2h2a2 2 0 002-2"></path>
                             <path d="M12 11h3m-3 4h3"></path>
                             <path d="M9 11h.01M9 16h.01"></path>
                         </svg>
@@ -412,7 +413,8 @@
                     </a>
                 </li>
                 <!-- Overige navigatielinks volgen hetzelfde patroon -->
-                <!-- ... -->
+                <!-- Taken -->
+                <!-- ... Voeg de rest van de navigatielinks hier toe ... -->
             </ul>
         </div>
     </aside>
@@ -445,7 +447,7 @@
                 </button>
                 <!-- Search input -->
                 <div class="flex justify-center flex-1 lg:mr-32">
-                    <div x-data="searchApp()" class="relative w-full max-w-xl mr-6 focus-within:text-purple-500">
+                    <div x-data="data()" class="relative w-full max-w-xl mr-6 focus-within:text-purple-500">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-2">
                             <svg
                                 class="w-4 h-4 text-gray-600"
@@ -479,7 +481,7 @@
                                     <a :href="'/tasks/' + result.slug" class="text-gray-700 dark:text-gray-300" x-text="result.name"></a>
                                 </li>
                             </template>
-                            <li x-show="results.length === 0 && query !== ''" class="p-2 te xt-sm text-gray-500 dark:text-gray-400">Geen resultaten gevonden.</li>
+                            <li x-show="results.length === 0 && query !== ''" class="p-2 text-sm text-gray-500 dark:text-gray-400">Geen resultaten gevonden.</li>
                         </ul>
                     </div>
                 </div>
@@ -487,43 +489,93 @@
                 <ul class="flex items-center flex-shrink-0 space-x-6">
                     <!-- Theme toggler -->
                     <li class="flex">
-                        <button
-                            class="rounded-md focus:outline-none focus:shadow-outline-purple"
-                            @click="toggleTheme"
-                            aria-label="Toggle color mode"
-                        >
-                            <template x-if="!dark">
-                                <svg
-                                    class="w-5 h-5"
-                                    aria-hidden="true"
-                                    fill="currentColor"
-                                    viewBox="0 0 20 20"
-                                >
-                                    <path
-                                        d="M17.293 13.293A8 8 0 116.707 2.707a8 8 0 0010.586 10.586z"
-                                    ></path>
-                                </svg>
-                            </template>
-                            <template x-if="dark">
-                                <svg
-                                    class="w-5 h-5"
-                                    aria-hidden="true"
-                                    fill="currentColor"
-                                    viewBox="0 0 20 20"
-                                >
-                                    <path
-                                        fill-rule="evenodd"
-                                        d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zM9.293 14.707a1 1 0 010-1.414L12 10.586l2.707 2.707a1 1 0 11-1.414 1.414L12 12.414l-1.293 1.293a1 1 0 01-1.414 0zM12 3a1 1 0 00-1 1v1a1 1 0 102 0V4a1 1 0 00-1-1z"
-                                        clip-rule="evenodd"
-                                    ></path>
-                                </svg>
-                            </template>
-                        </button>
+
                     </li>
-                    <!-- Notifications menu -->
-                    <!-- Voeg hier je notificatiemenu toe indien nodig -->
                     <!-- Profile menu -->
-                    <!-- Voeg hier je profielmenu toe indien nodig -->
+                    <li class="relative">
+                        <button
+                            class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
+                            @click="toggleProfileMenu"
+                            @keydown.escape="closeProfileMenu"
+                            aria-label="Account"
+                            aria-haspopup="true"
+                        >
+                            <img
+                                class="object-cover w-8 h-8 rounded-full"
+                                src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}"
+                                alt=""
+                                aria-hidden="true"
+                            />
+                        </button>
+                        <template x-if="isProfileMenuOpen">
+                            <ul
+                                x-transition:leave="transition ease-in duration-150"
+                                x-transition:leave-start="opacity-100"
+                                x-transition:leave-end="opacity-0"
+                                @click.away="closeProfileMenu"
+                                @keydown.escape="closeProfileMenu"
+                                class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700"
+                                aria-label="submenu"
+                            >
+                                <li class="flex">
+                                    <a
+                                        class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150
+                                        hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                        href="{{ url('/mijn-profiel/') }}"
+                                    >
+                                        <svg
+                                            class="w-4 h-4 mr-3"
+                                            aria-hidden="true"
+                                            fill="none"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0z"
+                                            ></path>
+                                            <path
+                                                d="M12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                                            ></path>
+                                        </svg>
+                                        <span>Mijn Profiel</span>
+                                    </a>
+                                </li>
+                                <li class="flex">
+                                    <a
+                                        class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150
+                                        hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                        href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                    >
+                                        <svg
+                                            class="w-4 h-4 mr-3"
+                                            aria-hidden="true"
+                                            fill="none"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                d="M17 16l4-4m0 0l-4-4m4 4H7"
+                                            ></path>
+                                            <path
+                                                d="M3 12a9 9 0 0118 0v1"
+                                            ></path>
+                                        </svg>
+                                        <span>Uitloggen</span>
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                                        @csrf
+                                    </form>
+                                </li>
+                            </ul>
+                        </template>
+                    </li>
                 </ul>
             </div>
         </header>
