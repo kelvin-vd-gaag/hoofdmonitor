@@ -3,13 +3,13 @@
 @section('content')
 
     <div class="container px-6 mx-auto grid">
-        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+        <h2 class="my-6 text-2xl font-semibold text-gray-700">
             Mijn Taken Overzicht
         </h2>
 
         <!-- Controleer of de gebruiker taken heeft -->
         @if($tasks->isEmpty())
-            <p class="text-gray-700 dark:text-gray-400">
+            <p class="text-gray-700 ">
                 U heeft momenteel geen taken toegewezen.
             </p>
         @else
@@ -25,9 +25,9 @@
                             <th class="px-4 py-3">Actie</th>
                         </tr>
                         </thead>
-                        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                        <tbody class="bg-white divide-y">
                         @foreach ($tasks as $task)
-                            <tr class="text-gray-700 dark:text-gray-400">
+                            <tr class="text-gray-700">
                                 <td class="px-4 py-3 text-sm">
                                     {{ $task->name }}
                                 </td>

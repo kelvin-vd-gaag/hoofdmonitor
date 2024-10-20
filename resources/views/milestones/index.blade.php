@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container px-6 mx-auto">
-        <h2 class="my-6 text-3xl font-bold text-gray-900 dark:text-white">{{ $task->name }}</h2>
+        <h2 class="my-6 text-3xl font-bold text-gray-900 ">{{ $task->name }}</h2>
 
         <!-- Formulier voor het aanmaken van meerdere milestones -->
         <form action="{{ route('milestones.store', $task->slug) }}" method="POST" id="milestoneForm" class="space-y-4">
@@ -11,13 +11,13 @@
 
             <div id="milestones-container" class="space-y-4">
                 <!-- Begin van de eerste subtaak rij -->
-                <div class="milestone-item bg-white dark:bg-gray-900 shadow-sm rounded-lg p-4 flex items-center space-x-4 border-l-4 border-purple-500">
+                <div class="milestone-item bg-white shadow-sm rounded-lg p-4 flex items-center space-x-4 border-l-4 border-limegreen">
                     <!-- Naam veld -->
                     <div class="flex-1">
                         <input
                             type="text"
                             name="milestones[0][name]"
-                            class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                             placeholder="Subtaak naam"
                             required
                         />
@@ -28,7 +28,7 @@
                         <input
                             type="number"
                             name="milestones[0][hours]"
-                            class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                             placeholder="Uren"
                             required
                         />
@@ -39,7 +39,7 @@
                         <input
                             type="date"
                             name="milestones[0][deadline]"
-                            class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                             required
                         />
                     </div>
@@ -49,7 +49,7 @@
                         <input
                             type="text"
                             name="milestones[0][description]"
-                            class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg  focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                             placeholder="Beschrijving (optioneel)"
                         />
                     </div>
@@ -72,7 +72,7 @@
 
             <!-- Opslaan knop -->
             <button type="submit"
-                    class="px-4 py-2 mt-4 text-sm font-medium text-white bg-purple-600 rounded-lg hover:bg-purple-700 focus:ring-4 focus:ring-purple-400">
+                    class="px-4 py-2 mt-4 text-sm font-medium text-white bg-lime-600 rounded-lg hover:bg-lime-700 focus:ring-4 focus:ring-purple-400">
                 Opslaan
             </button>
         </form>
@@ -84,14 +84,14 @@
         document.getElementById('add-milestone-btn').addEventListener('click', function () {
             const container = document.getElementById('milestones-container');
             const newMilestone = document.createElement('div');
-            newMilestone.classList.add('milestone-item', 'bg-white', 'dark:bg-gray-900', 'shadow-sm', 'rounded-lg', 'p-4', 'flex', 'items-center', 'space-x-4', 'border-l-4', 'border-purple-500', 'mb-4');
+            newMilestone.classList.add('milestone-item', 'bg-white', 'shadow-sm', 'rounded-lg', 'p-4', 'flex', 'items-center', 'space-x-4', 'border-l-4', 'border-limegreen-500', 'mb-4');
 
             newMilestone.innerHTML = `
         <div class="flex-1">
             <input
                 type="text"
                 name="milestones[` + milestoneIndex + `][name]"
-                class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 placeholder="Subtaak naam"
                 required
             />
@@ -100,7 +100,7 @@
             <input
                 type="number"
                 name="milestones[` + milestoneIndex + `][hours]"
-                class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 placeholder="Uren"
                 required
             />
@@ -109,7 +109,7 @@
             <input
                 type="date"
                 name="milestones[` + milestoneIndex + `][deadline]"
-                class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg  focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 required
             />
         </div>
@@ -117,7 +117,7 @@
             <input
                 type="text"
                 name="milestones[` + milestoneIndex + `][description]"
-                class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                class="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg  focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 placeholder="Beschrijving (optioneel)"
             />
         </div>

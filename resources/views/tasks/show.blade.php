@@ -16,7 +16,7 @@
                 <strong class="font-bold">{{ session('error') }}</strong>
             </div>
         @endif
-        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+        <h2 class="my-6 text-2xl font-semibold text-gray-700">
             {{ $task->name }} -
             Deadline: {{ \Carbon\Carbon::parse($task->deadline)->locale('nl')->translatedFormat('l j F Y') }}
         </h2>
@@ -24,12 +24,12 @@
             <div class="mb-4 text-decoration-underline text-blue-500"><a
                     href="{{ url('/tasks/' . $task->slug . '/edit') }}">Taak bewerken</a></div>
         @endcan
-        <h3 class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-200">Taak beschrijving</h3>
+        <h3 class="mb-2 text-lg font-semibold text-gray-700">Taak beschrijving</h3>
         <p>
             {{ $task->description }}
         </p>
 
-        <h4 class="mb-4 mt-4 text-lg font-semibold text-gray-600 dark:text-gray-300">Belangrijke mijlpalen</h4>
+        <h4 class="mb-4 mt-4 text-lg font-semibold text-gray-600">Belangrijke mijlpalen</h4>
         @can('view', $task)
 
             <div class="mb-4 text-decoration-underline text-blue-500"><a
@@ -39,16 +39,16 @@
                 <div class="w-full overflow-x-auto">
                     <table class="w-full whitespace-no-wrap">
                         <thead>
-                        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b ">
                             <th class="px-4 py-3">Mijlpaal</th>
                             <th class="px-4 py-3">Tijdsduur (uren)</th>
                             <th class="px-4 py-3">Beschrijving</th>
                             <th class="px-4 py-3">Deadline</th>
                         </tr>
                         </thead>
-                        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                        <tbody class="bg-white divide-y ">
                         @foreach ($task->milestones as $milestone)
-                            <tr class="text-gray-700 dark:text-gray-400">
+                            <tr class="text-gray-700 ">
                                 <td class="px-4 py-3 text-sm">
                                     {{ $milestone->name }}
                                 </td>
@@ -69,21 +69,21 @@
             </div>
 
 
-            <h4 class="mb-4 mt-4 text-lg font-semibold text-gray-600 dark:text-gray-300">Informatie</h4>
+            <h4 class="mb-4 mt-4 text-lg font-semibold text-gray-600 ">Informatie</h4>
             <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
                 <!-- Card -->
                 <div
-                    class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
+                    class="flex items-center p-4 bg-white rounded-lg shadow-xs "
                 >
 
                     <div>
                         <p
-                            class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
+                            class="mb-2 text-sm font-medium text-gray-600 "
                         >
                             Verantwoordelijke medewerkers
                         </p>
                         <p
-                            class="text-lg font-semibold text-gray-700 dark:text-gray-200"
+                            class="text-lg font-semibold text-gray-700 "
                         >
                             @foreach($task->employees as $employee)
                                 <li><a href="{{'/employees'}}/{{ $employee->slug  }}">{{ $employee->name }}</a></li>
@@ -93,10 +93,10 @@
                 </div>
                 <!-- Card -->
                 <div
-                    class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
+                    class="flex items-center p-4 bg-white rounded-lg shadow-xs "
                 >
                     <div
-                        class="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500"
+                        class="p-3 mr-4 text-green-500 bg-green-100 rounded-full"
                     >
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path
@@ -108,12 +108,12 @@
                     </div>
                     <div>
                         <p
-                            class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
+                            class="mb-2 text-sm font-medium text-gray-600 "
                         >
                             Oorspronkelijke inschatting tijdsbelasting
                         </p>
                         <p
-                            class="text-lg font-semibold text-gray-700 dark:text-gray-200"
+                            class="text-lg font-semibold text-gray-700"
                         >
                             {{ $task->initial_hours }}
                         </p>
@@ -121,10 +121,10 @@
                 </div>
                 <!-- Card -->
                 <div
-                    class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
+                    class="flex items-center p-4 bg-white rounded-lg shadow-xs "
                 >
                     <div
-                        class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500"
+                        class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full "
                     >
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path
@@ -134,12 +134,12 @@
                     </div>
                     <div>
                         <p
-                            class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
+                            class="mb-2 text-sm font-medium text-gray-600 "
                         >
                             Niet ingevulde taakuren
                         </p>
                         <p
-                            class="text-lg font-semibold text-gray-700 dark:text-gray-200"
+                            class="text-lg font-semibold text-gray-700 "
                         >
                             {{ $task->hours }}
                         </p>
