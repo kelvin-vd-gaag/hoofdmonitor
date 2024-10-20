@@ -129,7 +129,12 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $this->authorize('delete', Task::class);
+        // Verwijder de taak
+        $task->delete();
+
+        // Redirect na succesvol verwijderen
+        return redirect()->route('tasks.index')->with('success', 'Taak succesvol verwijderd.');
     }
 
     public function search(Request $request)
