@@ -29,7 +29,7 @@ class TaskPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->role_id === 1;
     }
 
     /**

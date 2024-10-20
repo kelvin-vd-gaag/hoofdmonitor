@@ -9,6 +9,16 @@ class Task extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'description',
+        'hours',
+        'start_date',
+        'end_date',
+        'deadline',
+        'slug'
+    ];
+
     public function getRouteKeyName(): string
     {
         return 'slug';

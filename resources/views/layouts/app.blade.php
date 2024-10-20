@@ -591,7 +591,7 @@
                             placeholder="Zoek voor taken..."
                             aria-label="Search"
                             x-model="query"
-                            @input.debounce.300ms="search"
+                            @input.debounce.200ms="search"
                         />
                         <!-- Resultaten weergave -->
                         <ul

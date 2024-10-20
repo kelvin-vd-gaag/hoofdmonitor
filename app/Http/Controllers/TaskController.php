@@ -9,6 +9,8 @@ use App\Http\Requests\UpdateTaskRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+
 class TaskController extends Controller
 {
 
@@ -36,7 +38,8 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('create', Task::class);
+        return view('tasks.create');
     }
 
     /**
@@ -44,7 +47,22 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
-        //
+
+        // Slug genereren op basis van de taaknaam
+        $slug = Str::slug($request->name, '-');
+        // Task aanmaken met de gegenereerde slug
+        Task::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'hours' => $request->hours,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'deadline' => $request->end_date,
+            'slug' => $slug, // Voeg de slug toe
+        ]);
+
+        // Redirect na het succesvol aanmaken van de taak
+        return redirect()->route('tasks.index')->with('success', 'Taak succesvol aangemaakt');
     }
 
     /**

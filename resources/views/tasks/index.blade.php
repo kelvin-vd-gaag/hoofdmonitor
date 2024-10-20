@@ -3,6 +3,15 @@
 @section('content')
     <div class="container px-6 mx-auto grid">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">Overzicht van alle taken</h2>
+        @if (auth()->user()->role->name === 'admin')
+
+            <a href="{{ url('/tasks/create') }}" id="saveButton"
+               class="w-fit px-4 py-2 font-medium leading-5 text-gray-500 transition-colors duration-150 bg-lime-300 border border-transparent rounded-lg"
+               style="width: fit-content;">
+                Nieuwe taak
+            </a>
+        @endif
+
         <table class="w-full whitespace-no-wrap">
             <thead>
             <tr
@@ -21,37 +30,38 @@
                 <tr class="text-gray-700 ">
                     <td class="px-4 py-3">
                         <a href="{{ url('/tasks') . '/' . $task->slug }}">
-                        <div class="flex items-center text-sm">
-                            <!-- Avatar with inset shadow -->
-                            <div
-                                class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                            >
-                                <img
-                                    class="object-cover w-full h-full rounded-full"
-                                    src="img/task-32.png"
-                                    alt=""
-                                    loading="lazy"
-                                />
+                            <div class="flex items-center text-sm">
+                                <!-- Avatar with inset shadow -->
                                 <div
-                                    class="absolute inset-0 rounded-full shadow-inner"
-                                    aria-hidden="true"
-                                ></div>
-                            </div>
+                                    class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
+                                >
+                                    <img
+                                        class="object-cover w-full h-full rounded-full"
+                                        src="img/task-32.png"
+                                        alt=""
+                                        loading="lazy"
+                                    />
+                                    <div
+                                        class="absolute inset-0 rounded-full shadow-inner"
+                                        aria-hidden="true"
+                                    ></div>
+                                </div>
 
-                            <div>
-                                <p class="font-semibold"> {{ $task->name }}</p>
-                                <p class="text-xs text-gray-600 dark:text-gray-400">
-{{--                                    FTE: {{ $employee->fte }}--}}
-                                </p>
+                                <div>
+                                    <p class="font-semibold"> {{ $task->name }}</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">
+                                        {{--                                    FTE: {{ $employee->fte }}--}}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
                         </a>
                     </td>
                     <td class="px-4 py-3 text-sm">
                         @if($task->hours > 0)
                             {{ $task->hours }}
                         @else
-                            <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                            <span
+                                class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
                                   Alle uren vervuld
                             </span>
                         @endif
