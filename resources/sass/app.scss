@@ -14,3 +14,13 @@
 
 /* Je eigen SCSS */
 
+/* Forceer lichte modus */
+html {
+    --tw-bg-opacity: 1;
+    color-scheme: light;
+}
+
+html.dark {
+    background-color: white !important;
+    color: black !important;
+}

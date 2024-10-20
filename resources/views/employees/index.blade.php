@@ -9,7 +9,7 @@
         <table id="employeesTable" class="w-full whitespace-no-wrap">
             <thead>
             <tr
-                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b  bg-gray-50"
             >
                 <th class="px-4 py-3">Taak</th>
                 <th class="px-4 py-3">E-mail</th>
@@ -22,9 +22,9 @@
                 @endauth
             </tr>
             </thead>
-            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+            <tbody class="bg-white divide-y ">
             @foreach($employees as $employee)
-                <tr class="text-gray-700 dark:text-gray-400">
+                <tr class="text-gray-700 ">
                     <td class="px-4 py-3">
                         <a href="{{ url('/employees') }}/{{ $employee->slug }}">
                             <div class="flex items-center text-sm">

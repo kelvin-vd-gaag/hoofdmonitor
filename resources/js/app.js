@@ -10,7 +10,7 @@ window.data = function data() {
     return {
         dark: false,
         toggleTheme() {
-            this.dark = !this.dark;
+            this.light = !this.light;
         },
         isProfileMenuOpen: false,
         toggleProfileMenu() {

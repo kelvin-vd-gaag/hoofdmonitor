@@ -6,7 +6,7 @@
 
         @foreach($tasksPerMonth as $month => $tasks)
             <div class="p-6 mb-6 border border-gray-200 rounded-lg shadow-md bg-white dark:bg-gray-800 dark:border-gray-700">
-                <time class="text-2xl font-semibold text-gray-900 dark:text-white">{{ $month }}</time>
+                <time class="text-2xl font-semibold text-gray-900">{{ $month }}</time>
                 <ol class="mt-4 space-y-4">
                     @foreach($tasks as $task)
                         <li class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-200 ease-in-out">
@@ -32,7 +32,7 @@
                                         @endif
                                     </div>
                                 </div>
-                             
+
                             </a>
                         </li>
                     @endforeach

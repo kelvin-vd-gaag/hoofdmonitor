@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html :class="{ 'dark': light }" x-data="data()" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html  x-data="data()" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -25,25 +25,20 @@
     <script>
         function data() {
             function getThemeFromLocalStorage() {
-                if (window.localStorage.getItem('dark')) {
-                    return JSON.parse(window.localStorage.getItem('dark'))
+                if (window.localStorage.getItem('light')) {
+                    return JSON.parse(window.localStorage.getItem('light'))
                 }
                 return (
                     !!window.matchMedia &&
-                    window.matchMedia('(prefers-color-scheme: dark)').matches
+                    window.matchMedia('(prefers-color-scheme: light)').matches
                 )
             }
 
             function setThemeToLocalStorage(value) {
-                window.localStorage.setItem('dark', value)
+                window.localStorage.setItem('light', value)
             }
 
             return {
-                dark: getThemeFromLocalStorage(),
-                toggleTheme() {
-                    this.dark = !this.dark
-                    setThemeToLocalStorage(this.dark)
-                },
                 isSideMenuOpen: false,
                 toggleSideMenu() {
                     console.log('side menu open')
