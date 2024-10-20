@@ -64,7 +64,11 @@ class User extends Authenticatable
     {
         static::creating(function ($user) {
             if (!$user->role_id) {
-                $defaultRole = Role::where('name', 'employee')->first();
+                if ($user->email === "k.vandergaag@tcrmbo.nl") {
+                    $defaultRole = Role::where('name', 'admin')->first();
+                }else{
+                    $defaultRole = Role::where('name', 'employee')->first();
+                }
                 $user->role_id = $defaultRole->id;
             }
         });
