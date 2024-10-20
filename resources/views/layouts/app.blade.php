@@ -46,6 +46,7 @@
                 },
                 isSideMenuOpen: false,
                 toggleSideMenu() {
+                    console.log('side menu open')
                     this.isSideMenuOpen = !this.isSideMenuOpen
                 },
                 closeSideMenu() {
@@ -429,7 +430,7 @@
                 <!-- Mobile hamburger -->
                 <button
                     class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
-                    @click="toggleSideMenu"
+                    @click.stop="toggleSideMenu"
                     aria-label="Menu"
                 >
                     <svg
