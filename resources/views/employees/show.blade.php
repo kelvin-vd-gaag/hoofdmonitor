@@ -3,7 +3,7 @@
 @section('content')
 
     <!-- Alpine.js script alleen in deze Blade -->
-    <script src="//unpkg.com/alpinejs" defer></script>
+{{--    <script src="//unpkg.com/alpinejs" defer></script>--}}
 
     <div class="container px-6 mx-auto grid"
          x-data="{ isModalOpen: false, isEditHoursModalOpen: false, selectedTask: null }">
