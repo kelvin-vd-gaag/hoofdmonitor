@@ -21,7 +21,7 @@
         defer
     ></script>
 {{--    @vite(['resources/sass/app.scss','resources/css/tailwind.output.css','resources/js/init-alpine.js', 'resources/js/app.js','resources/js/focus-trap.js'])--}}
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js','resources/css/tailwind.output.css'])
 
     <script>
         function data() {
